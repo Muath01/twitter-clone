@@ -20,7 +20,7 @@ function HomePage() {
           For you
         </div>
         <div
-          className=" h-1/2 absolute bottom-0 w-1/2 right-0 flex justify-center items-center text-gray-400 font-bold 
+          className=" h-1/2 absolute bottom-0 w-1/2 right-0 flexf justify-center items-center text-gray-400 font-bold 
                         "
         >
           Following
