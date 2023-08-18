@@ -45,7 +45,7 @@ function HomePage() {
 
   return (
     <>
-      <div className=" grid sm:grid-cols-9 sm:grid-rows-1 grid-rows-9 h-full w-full border-10 border-pink-500 bg-[#15202B] absolute ">
+      <div className=" grid sm:grid-cols-9 sm:grid-rows-1 grid-rows-9 h-full w-full border-10 border-pink-500 bg-[#15202B] relative ">
         {/* menu */}
         <div className="sm:col-span-1 md:col-span-2 xl:col-span-2 row-span-3 order-2 sm:order-1 h-full sticky  ">
           <Menu />
@@ -59,7 +59,7 @@ function HomePage() {
                 c
               </div>
               <div className="">
-                <i className="fa-solid fa-dove text-white text-[24px] mt-1"></i>
+                <i className="fa-brands fa-twitter text-white text-[24px] mt-1  "></i>
               </div>
               <div
                 className=" h-1/2 absolute w-1/2 bottom-0 left-0 flex justify-center items-center text-gray-400 font-bold

@@ -12,7 +12,7 @@ function Menu() {
     >
       <div className=" xl:text-[20px] text-[25px] flex justify-around items-center  w-full relative  h-full sm:flex-col sm:gap-[2.3rem]  md:gap-10 xl:gap-6 xl:items-start  md:w-3/5  sm:items-center sm:justify-start ">
         <div className="xl:flex justify-center items-center gap-5 hidden">
-          <i className="fa-solid fa-dove text-white text-[28px] mt-1"></i>
+          <i className="fa-brands fa-twitter text-white text-[24px] mt-1  "></i>
         </div>
         <p className="flex justify-center items-center gap-5 ">
           <i className="fa-solid fa-house-chimney-window"></i>
