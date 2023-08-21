@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-function Posts({ content }: any) {
+function Posts({ content, username }: any) {
   // useEffect(() => {
   //   getPosts();
   // }, []);
@@ -10,7 +10,7 @@ function Posts({ content }: any) {
     <div className="border-b bg-[#15202B] border-gray-600 min-h-[15%] w-full h-auto  relative    flex flex-col gap-2 items-center justify-end pt-8 pb-[1.5rem] ">
       <div className=" absolute left-2 top-2 flex gap-2     text-white h-auto w-1/2">
         <div className="w-[40px] h-[40px] rounded-[100%] bg-white relative "></div>
-        <p>User Name</p>
+        <p>{username}</p>
       </div>
       <div className="text-left w-4/5 h-auto justify-self-end left-5 relative">
         {content}

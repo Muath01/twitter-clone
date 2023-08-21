@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import HomePage from "./HomePage";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { PostType, setPosts } from "../Redux/postsReducer";
+import { RootState } from "../Redux/store";
 function PostCreation({ getPosts }: any) {
   const [postContent, setPostContent] = useState("");
+
+  const user = useSelector((state: RootState) => state.setSigned);
 
   const dispatch = useDispatch();
 
@@ -12,6 +15,7 @@ function PostCreation({ getPosts }: any) {
     try {
       const postReq = await axios.post("http://localhost:3001/post", {
         content: postContent,
+        username: user.username,
       });
 
       console.log("POST:", postReq);
