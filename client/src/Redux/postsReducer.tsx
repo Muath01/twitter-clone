@@ -1,8 +1,16 @@
-import { PayloadAction, configureStore, createSlice } from "@reduxjs/toolkit";
+import {
+  PayloadAction,
+  configureStore,
+  createSlice,
+  current,
+} from "@reduxjs/toolkit";
+import { act } from "react-dom/test-utils";
 
 export interface PostType {
   content: String;
   likes: Number;
+  _id: string;
+  likeyBy: Array<String>;
 }
 
 const initialState: PostType[] = [];
@@ -11,10 +19,25 @@ export const postReducer = createSlice({
   name: "post",
   initialState,
   reducers: {
-    setPosts: (state, action: PayloadAction<PostType[]>) => {
-      console.log(state);
+    setPosts: (state, action) => {
+      const post = action.payload;
+      if (Array.isArray(post)) {
+        return [...action.payload];
+      } else {
+        const updatedState = current(state).map((item) => {
+          if (item._id == post._id) {
+            console.log("item:", item);
+            console.log("post:", post);
+            return {
+              ...item,
+              likes: post.likes,
+            };
+          }
 
-      return [...action.payload];
+          return item;
+        });
+        return updatedState; // Add this return statement
+      }
     },
   },
 });

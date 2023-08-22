@@ -18,22 +18,18 @@ function PostCreation({ getPosts }: any) {
         username: user.username,
       });
 
-      console.log("POST:", postReq);
-
       const response = await axios.get("http://localhost:3001/posts", {
         params: {
           user: "abc",
         },
       });
 
-      console.log("RES: ", response);
       await dispatch(setPosts(response.data));
     } catch (error) {}
   }
 
   // getPosts();
 
-  // console.log("post Creation");
   return (
     <>
       <div className="h-[10rem] bg-[#15202B] hidden sm:block  relative border-b  ">

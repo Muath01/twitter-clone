@@ -22,11 +22,9 @@ function Auth() {
     if (instruction == "remove") {
       inputRef.current!.style.borderColor = "blue";
       inputRef.current!.style.borderWidth = "21px";
-      console.log("remove");
     } else {
       inputRef.current!.style.borderColor = "#278CF1";
       inputRef.current!.style.borderWidth = "2px";
-      console.log("not remove");
     }
   }
 
@@ -55,12 +53,9 @@ function Auth() {
       ...loginInfo,
       [name]: value,
     });
-
-    console.log("info: ", loginInfo);
   }
   async function login(e: any) {
     e.preventDefault();
-    console.log("submittin");
 
     try {
       const response = await axios.get("http://localhost:3001/auth", {
@@ -69,20 +64,21 @@ function Auth() {
         },
       });
 
-      console.log(response.data);
-
       if (!response.data.success) {
         dispatch(setSigned(response.data.success));
       } else {
-        console.log("it's true");
-        console.log(response.data);
-        let whoLogged = { isLogged: true, user: response.data.user };
+        let whoLogged = {
+          isLogged: true,
+          user: response.data.user.username,
+          id: response.data.user._id,
+        };
         let whoLoggedObjectString = JSON.stringify(whoLogged);
         localStorage.setItem("loggedUser", whoLoggedObjectString);
         dispatch(
           setSigned({
             success: response.data.success,
-            username: response.data.user,
+            username: response.data.user.username,
+            _id: response.data.user._id,
           })
         );
         navigate("/");

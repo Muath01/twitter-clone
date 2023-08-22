@@ -24,22 +24,16 @@ function HomePage() {
   const parsed = JSON.parse(isLoggedIn!) as {
     isLogged: boolean;
     user: string;
+    id: string;
   };
 
-  console.log("username: ", user);
-
-  // console.log("PostRedux: ", postsRedux);
   async function getPosts() {
-    // console.log("here");
     try {
       const response = await axios.get("http://localhost:3001/posts", {
         params: {
           user: "abc",
         },
       });
-
-      // console.log("DAta: ", response);
-      // console.log("AFTER GET");
 
       dispatch(setPosts(response.data));
 
@@ -48,11 +42,9 @@ function HomePage() {
       console.log("Error:", err.message);
     }
   }
-  // console.log("STATE:", postsRedux);
 
   useEffect(() => {
     getPosts();
-    // console.log("USEEFFECT!");
   }, []);
 
   return (
@@ -93,8 +85,9 @@ function HomePage() {
             .map((post: any, key: any) => (
               <Posts
                 key={key}
-                content={post.content}
-                username={post.username}
+                post={post}
+                // content={post.content}
+                // username={post.username}
               />
             ))}
         </div>

@@ -70,7 +70,7 @@ app.get("/auth", async (req, res) => {
     ) {
       console.log("Loggin in ");
 
-      res.json({ success: true, user: user[0].username });
+      res.json({ success: true, user: user[0] });
     } else {
       console.log("can't login");
       res.json({ success: false, username: user[0].username });
@@ -83,7 +83,7 @@ app.get("/auth", async (req, res) => {
 app.get("/posts", async (req, res) => {
   try {
     const posts = await PostModel.find();
-
+    console.log("POSTid: ", posts[0]);
     res.json(posts);
   } catch (error) {
     console.log("err: ", error.message);
@@ -91,6 +91,46 @@ app.get("/posts", async (req, res) => {
   }
 });
 
+// Assuming you have the user ID and post ID available
+
+// Find the post by ID
+
+app.post("/like", async (req, res) => {
+  console.log(req.body);
+
+  const { id: postId, username } = req.body;
+  let post = await PostModel.findById(postId).exec();
+  const userId = await UserModel.findOne({ username }, "_id").exec();
+
+  // console.log("post: ", post);
+  const isLiked = post.likedBy.some((obj) => {
+    console.log("objId: ", obj._id.toString()); //64e07024c7484dab961bb787
+    console.log("userId: ", userId._id.toString()); // 64e07024c7484dab961bb787
+    return obj._id.equals(userId._id);
+  });
+  console.log("isliked: ", isLiked);
+
+  if (isLiked) {
+    console.log("user has already like the post! ");
+    res.json({ post, liked: true });
+  } else {
+    // User has not liked the post, add user ID to likedBy array and increment likes count
+    post.likedBy.push(userId);
+    post.likes++;
+
+    // Save the updated post
+    post = await post.save();
+
+    // Convert the post object to a plain JavaScript object
+    const plainPost = post.toObject();
+
+    // Send the response with the plainPost object
+    res.json({ post, liked: true });
+
+    // Post liked successfully
+    console.log("post liked succefully");
+  }
+});
 app.post("/post", async (req, res) => {
   try {
     const createPost = await PostModel({

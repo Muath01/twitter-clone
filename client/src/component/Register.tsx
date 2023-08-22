@@ -14,21 +14,12 @@ function Register() {
   const [newUser, setNewUser] = useState({});
 
   function setName(e: any) {
-    // console.log("here");
-    // console.log("event: ", e.target);
     const { name, value } = e.target;
-
-    // console.log("name: ", name);
-    // console.log("value: ", value);
 
     setNewUser({
       ...newUser,
       [name]: value,
     });
-
-    console.log("newUser: ", newUser);
-
-    // console.log("newuser: ", newUser);
   }
 
   function register() {
@@ -41,40 +32,6 @@ function Register() {
     }
   }
 
-  // function handleDivBorder(inputRefDiv: any, e: any) {
-  //   // console.log("target: ", e.target);
-  //   // console.log("REF: ", inputRef.current);
-  //   // console.log("Equal: ", inputRef.current === e.target);
-  //   inputRefDiv.current!.style.borderColor = "#278CF1";
-  //   inputRefDiv.current!.style.borderWidth = "2px";
-  // }
-
-  // useEffect(() => {
-  //   // console.log("hereEffect");
-  //   const handleOutsideClick = (event: MouseEvent) => {
-  //     // console.log("event: ", event.target);
-  //     const input = event.target as HTMLParagraphElement;
-  //     const parent = input?.parentNode as HTMLDivElement;
-
-  //     // console.log(first)
-  //     if (
-  //       parent &&
-  //       inputRef.current &&
-  //       !inputRef.current.contains(event.target as Node) //checks if the clicked even points at our useRef, if no then it removes the stlying.
-  //     ) {
-  //       console.log("EEE");
-  //       parent.style.borderColor = "#8A97A4";
-  //       parent.style.borderWidth = "1px";
-  //     } else {
-  //       // console.log("else: ", inputRef.current);
-  //     }
-  //   };
-  //   document.addEventListener("click", (e) => handleOutsideClick(e));
-
-  //   return () => {
-  //     document.removeEventListener("click", handleOutsideClick);
-  //   };
-  // });
   return (
     <div className="bg-[#15202B] w-full h-[100%]">
       <div className="flex items-center justify-center h-full">
