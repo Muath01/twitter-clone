@@ -12,6 +12,7 @@ function Posts({ post }: any) {
   // console.log("On Posts component");
   const user = useSelector((state: RootState) => state.setSigned);
   const poster = useSelector((state: RootState) => state.postsRedux);
+  const [hello, setHello] = useState("");
   const dispatch = useDispatch();
 
   async function likePost(e: any) {
@@ -26,12 +27,23 @@ function Posts({ post }: any) {
 
       // console.log("res: ", response.data);
       await dispatch(setPosts(response.data.post));
+      // await dispatch(setPosts(poster));
     } catch (err: any) {
       console.log("error", err.message);
     }
   }
 
-  const liked = post.likedBy.some((item: any) => item._id == user._id);
+  // const liked = post.likedBy.some((item: any) => item._id == user._id);
+  const [liked, setLiked] = useState(
+    post.likedBy.some((item: any) => item._id === user._id)
+  );
+
+  console.log("user: ", user._id);
+  console.log("post: ", post.likedBy);
+
+  useEffect(() => {
+    setLiked(post.likedBy.some((item: any) => item._id === user._id));
+  }, [post.likedBy, user._id]);
 
   return (
     <div className="border-b bg-[#15202B] border-gray-600 min-h-[15%] w-full h-auto  relative    flex flex-col gap-2 items-center justify-end pt-8 pb-[1.5rem] ">
@@ -44,8 +56,11 @@ function Posts({ post }: any) {
       </div>
       <div className="flex  w-4/5 relative  justify-end left-6 items-center gap-10 text-[20px] text-gray-400 flex-row-reverse ">
         <i
-          onClick={(e) => likePost(e)}
-          className={`fa-regular fa-heart flex  items-start relative justify-center ${
+          onClick={(e) => {
+            setHello("he");
+            likePost(e);
+          }}
+          className={`fa-regular fa-heart flex  items-start relative justify-center cursor-pointer ${
             liked ? "text-red-600" : ""
           }`}
         >

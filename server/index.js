@@ -83,7 +83,7 @@ app.get("/auth", async (req, res) => {
 app.get("/posts", async (req, res) => {
   try {
     const posts = await PostModel.find();
-    console.log("POSTid: ", posts[0]);
+    // console.log("POSTid: ", posts[0]);
     res.json(posts);
   } catch (error) {
     console.log("err: ", error.message);
@@ -108,10 +108,19 @@ app.post("/like", async (req, res) => {
     console.log("userId: ", userId._id.toString()); // 64e07024c7484dab961bb787
     return obj._id.equals(userId._id);
   });
-  console.log("isliked: ", isLiked);
+  // console.log("isliked: ", isLiked);
 
   if (isLiked) {
     console.log("user has already like the post! ");
+
+    console.log("post-before: ", post.likedBy); //post-before:  [ { _id: new ObjectId("64e07024c7484dab961bb787") } ]
+
+    post.likedBy = post.likedBy.filter(
+      (item) => item._id.toString() !== userId._id.toString()
+    );
+    post.likes--;
+    await post.save();
+    console.log("post-after: ", post.likedBy); //post-after:  [ { _id: new ObjectId("64e07024c7484dab961bb787") } ]
     res.json({ post, liked: true });
   } else {
     // User has not liked the post, add user ID to likedBy array and increment likes count
@@ -125,7 +134,7 @@ app.post("/like", async (req, res) => {
     const plainPost = post.toObject();
 
     // Send the response with the plainPost object
-    res.json({ post, liked: true });
+    await res.json({ post, liked: true });
 
     // Post liked successfully
     console.log("post liked succefully");

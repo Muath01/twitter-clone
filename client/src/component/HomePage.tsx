@@ -42,8 +42,10 @@ function HomePage() {
       console.log("Error:", err.message);
     }
   }
+  console.log("r", postsRedux[0]);
 
   useEffect(() => {
+    console.log("HomePage");
     getPosts();
   }, []);
 
