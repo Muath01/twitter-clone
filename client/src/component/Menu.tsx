@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 function Menu() {
   const [showMenu, setShowMenu] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.setSigned);
@@ -29,6 +30,13 @@ function Menu() {
     { section: "Profile", icon: "fa-solid fa-user", class: "sm:flex hidden" },
     { section: "more", icon: "fa-solid fa-bars", class: "sm:flex hidden" },
   ];
+
+  function makeAPost() {
+    if (user.signed) {
+    } else {
+      navigate("/auth");
+    }
+  }
   return (
     <div
       className=" text-white fixed z-10
@@ -57,7 +65,10 @@ function Menu() {
         ))}
 
         <div className="xl:flex hidden flex-col   ">
-          <button className="bg-[#359BF0] xl:flex justify-center items-center hidden rounded-full py-2 px-14 w-[92%] absolute text-[16px] ">
+          <button
+            onClick={(e) => makeAPost()}
+            className="bg-[#359BF0] xl:flex justify-center items-center hidden rounded-full py-2 px-14 w-[92%] absolute text-[16px] "
+          >
             Post
           </button>
         </div>

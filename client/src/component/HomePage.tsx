@@ -8,6 +8,7 @@ import { RootState } from "../Redux/store";
 import { PostType, setPosts } from "../Redux/postsReducer";
 import { useNavigate } from "react-router-dom";
 import { Root } from "react-dom/client";
+import Auth from "./Auth";
 // import {BiSolidHomeCircle} from "react"
 // import {GrNotification} from "react"
 
@@ -79,7 +80,7 @@ function HomePage() {
               Following
             </div>
           </div>
-          <PostCreation />
+          {user.signed ? <PostCreation /> : ""}
 
           {postsRedux
             .slice(0)

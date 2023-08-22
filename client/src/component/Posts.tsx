@@ -3,47 +3,47 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import { setPosts } from "../Redux/postsReducer";
+import { useNavigate } from "react-router-dom";
 
 function Posts({ post }: any) {
-  // useEffect(() => {
-  //   getPosts();
-  // }, []);
-
-  // console.log("On Posts component");
   const user = useSelector((state: RootState) => state.setSigned);
   const poster = useSelector((state: RootState) => state.postsRedux);
+  const navigate = useNavigate();
   const [hello, setHello] = useState("");
   const dispatch = useDispatch();
 
   async function likePost(e: any) {
-    // console.log("isnide: ", post);
-
-    // e.target.className += " text-red-600";
+    if (!user.signed) {
+      // if user attempts to like whilst not logged in, direct them to the login section
+      navigate("/auth");
+    }
     try {
       const response = await axios.post("http://localhost:3001/like", {
         id: post._id,
         username: user.username, //user likes and username
       });
 
-      // console.log("res: ", response.data);
       await dispatch(setPosts(response.data.post));
-      // await dispatch(setPosts(poster));
     } catch (err: any) {
       console.log("error", err.message);
     }
   }
 
   // const liked = post.likedBy.some((item: any) => item._id == user._id);
-  const [liked, setLiked] = useState(
-    post.likedBy.some((item: any) => item._id === user._id)
-  );
+  // const [liked, setLiked] = useState(
+  //   post.likedBy.some((item: any) => item._id === user._id)
+  // );
 
-  console.log("user: ", user._id);
-  console.log("post: ", post.likedBy);
+  const liked = user._id
+    ? post.likedBy.some((item: any) => item._id === user._id)
+    : null;
 
-  useEffect(() => {
-    setLiked(post.likedBy.some((item: any) => item._id === user._id));
-  }, [post.likedBy, user._id]);
+  // console.log("user: ", user);
+  // console.log("post: ", post.likedBy);
+
+  // useEffect(() => {
+  //   setLiked(post.likedBy.some((item: any) => item._id === user._id));
+  // }, [post.likedBy, user._id]);
 
   return (
     <div className="border-b bg-[#15202B] border-gray-600 min-h-[15%] w-full h-auto  relative    flex flex-col gap-2 items-center justify-end pt-8 pb-[1.5rem] ">
