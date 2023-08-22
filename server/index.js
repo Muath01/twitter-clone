@@ -104,8 +104,8 @@ app.post("/like", async (req, res) => {
 
   // console.log("post: ", post);
   const isLiked = post.likedBy.some((obj) => {
-    console.log("objId: ", obj._id.toString()); //64e07024c7484dab961bb787
-    console.log("userId: ", userId._id.toString()); // 64e07024c7484dab961bb787
+    // console.log("objId: ", obj._id.toString()); //64e07024c7484dab961bb787
+    // console.log("userId: ", userId._id.toString()); // 64e07024c7484dab961bb787
     return obj._id.equals(userId._id);
   });
   // console.log("isliked: ", isLiked);

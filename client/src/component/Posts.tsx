@@ -16,7 +16,9 @@ function Posts({ post }: any) {
     if (!user.signed) {
       // if user attempts to like whilst not logged in, direct them to the login section
       navigate("/auth");
+      return;
     }
+
     try {
       const response = await axios.post("http://localhost:3001/like", {
         id: post._id,
@@ -30,20 +32,25 @@ function Posts({ post }: any) {
   }
 
   // const liked = post.likedBy.some((item: any) => item._id == user._id);
-  // const [liked, setLiked] = useState(
-  //   post.likedBy.some((item: any) => item._id === user._id)
-  // );
-
-  const liked = user._id
-    ? post.likedBy.some((item: any) => item._id === user._id)
-    : null;
+  const [liked, setLiked] = useState(
+    // user._id &&
+    // post.likeBy &&
+    post.likedBy.some((item: any) => item._id === user._id)
+  );
+  console.log("abovelike: ", user);
+  // const liked =
+  // user._id &&
+  // post.likeBy &&
+  //   post.likedBy.some((item: any) => item._id === user._id);
 
   // console.log("user: ", user);
   // console.log("post: ", post.likedBy);
 
-  // useEffect(() => {
-  //   setLiked(post.likedBy.some((item: any) => item._id === user._id));
-  // }, [post.likedBy, user._id]);
+  useEffect(() => {
+    // user._id &&
+    // post.likeBy &&
+    setLiked(post.likedBy.some((item: any) => item._id === user._id));
+  }, [post.likedBy, user._id]);
 
   return (
     <div className="border-b bg-[#15202B] border-gray-600 min-h-[15%] w-full h-auto  relative    flex flex-col gap-2 items-center justify-end pt-8 pb-[1.5rem] ">
@@ -60,7 +67,7 @@ function Posts({ post }: any) {
             setHello("he");
             likePost(e);
           }}
-          className={`fa-regular fa-heart flex  items-start relative justify-center cursor-pointer ${
+          className={`fa-regular fa-heart flex  items-start relative justify-center cursor-pointer  ${
             liked ? "text-red-600" : ""
           }`}
         >
