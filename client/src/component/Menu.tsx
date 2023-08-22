@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSigned } from "../Redux/signedReducer";
 import { RootState } from "../Redux/store";
 import { useNavigate } from "react-router-dom";
+import PostCreation from "./PostCreation";
+import { postMenuContext } from "./HomePage";
 
 function Menu() {
   const [showMenu, setShowMenu] = useState(false);
+  const [postClicked, setPostClicked] = useState(false);
+
+  const postModal = useContext(postMenuContext);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,6 +38,8 @@ function Menu() {
 
   function makeAPost() {
     if (user.signed) {
+      console.log("postModal: ", postModal);
+      setPostClicked(!postClicked);
     } else {
       navigate("/auth");
     }
@@ -40,7 +47,7 @@ function Menu() {
   return (
     <div
       className=" text-white fixed z-10
-                  bottom-0 w-full h-[10%] flex justify-between bg-[#15202B] shadow-lg text-[24px]  py-6 border-gray-600
+                  bottom-0 w-full h-[10%] flex justify-between bg-[#15202B] shadow-lg text-[24px]  border-gray-600
                    sm:w-[100%]   sm:flex-col 
                   sm:relative sm:h-[100%] 
                   border md:items-end
@@ -100,6 +107,13 @@ function Menu() {
           </div>
         </div>
       </div>
+      {postClicked && (
+        <div className="fixed flex justify-center items-center border-white w-full h-full left-[0rem]   bg-black place-items-center bg-opacity-50 ">
+          <div className="relative w-1/2 h-1/2 border-2 rounded-xl">
+            <PostCreation />;
+          </div>
+        </div>
+      )}
     </div>
   );
 }

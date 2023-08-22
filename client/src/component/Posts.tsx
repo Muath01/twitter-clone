@@ -53,7 +53,7 @@ function Posts({ post }: any) {
   }, [post.likedBy, user._id]);
 
   return (
-    <div className="border-b bg-[#15202B] border-gray-600 min-h-[15%] w-full h-auto  relative    flex flex-col gap-2 items-center justify-end pt-8 pb-[1.5rem] ">
+    <div className="border-b bg-[#15202B] hover:bg-[#162431] border-gray-600 min-h-[15%] w-full h-auto  relative cursor-pointer flex flex-col gap-2 items-center justify-end pt-8 pb-[1.5rem] ">
       <div className=" absolute left-2 top-2 flex gap-2     text-white h-auto w-1/2">
         <div className="w-[40px] h-[40px] rounded-[100%] bg-white relative "></div>
         <p>{post.username}</p>
@@ -67,7 +67,7 @@ function Posts({ post }: any) {
             setHello("he");
             likePost(e);
           }}
-          className={`fa-regular fa-heart flex  items-start relative justify-center cursor-pointer  ${
+          className={`fa-regular fa-heart flex  items-start relative justify-center cursor-pointer hover:text-red-600  ${
             liked ? "text-red-600" : ""
           }`}
         >

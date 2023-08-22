@@ -24,7 +24,7 @@ function PostCreation({ getPosts }: any) {
         },
       });
 
-      await dispatch(setPosts(response.data));
+      // await dispatch(setPosts(response.data));
     } catch (error) {}
   }
 
