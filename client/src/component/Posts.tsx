@@ -37,7 +37,6 @@ function Posts({ post }: any) {
     // post.likeBy &&
     post.likedBy.some((item: any) => item._id === user._id)
   );
-  console.log("abovelike: ", user);
   // const liked =
   // user._id &&
   // post.likeBy &&

@@ -11,9 +11,10 @@ import { Root } from "react-dom/client";
 import Auth from "./Auth";
 // import {BiSolidHomeCircle} from "react"
 // import {GrNotification} from "react"
+import { postMenuContext } from "../Contexts/postMenuContext";
 
-export const postMenuContext = createContext(false);
 function HomePage() {
+  const [postModal, setPostModal] = useState(false);
   const [postsX, setPostsX] = useState<any>([]);
   const [load, setLoad] = useState(true);
   const navigate = useNavigate();
@@ -53,9 +54,9 @@ function HomePage() {
 
   return (
     <div className=" grid sm:grid-cols-9 sm:grid-rows-1 grid-rows-9 h-full w-full  bg-[#15202B] relative justify-end items-end  ">
-      <postMenuContext.Provider value={false}>
+      <postMenuContext.Provider value={{ postModal, setPostModal }}>
         {/* menu */}
-        <div className="sm:col-span-1 md:col-span-2 xl:col-span-2 row-span-3 order-2 border-2 w-1/4 sm:order-1 h-full absolute ">
+        <div className="sm:col-span-1 md:col-span-2 xl:col-span-2 row-span-3 order-2 w-1/4 sm:order-1 h-full absolute ">
           <Menu />
         </div>
         {/* <div className="absolute border-2 border-white w-1/2 h-1/2 left-44 z-10   bg-black place-items-center">

@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import HomePage from "./HomePage";
 import { useDispatch, useSelector } from "react-redux";
 import { PostType, setPosts } from "../Redux/postsReducer";
 import { RootState } from "../Redux/store";
+import { postMenuContext } from "../Contexts/postMenuContext";
 function PostCreation({ getPosts }: any) {
   const [postContent, setPostContent] = useState("");
+
+  const { postModal, setPostModal } = useContext(postMenuContext);
 
   const user = useSelector((state: RootState) => state.setSigned);
 
   const dispatch = useDispatch();
 
   async function createPost() {
+    setPostModal(false);
     try {
       const postReq = await axios.post("http://localhost:3001/post", {
         content: postContent,
@@ -24,7 +28,7 @@ function PostCreation({ getPosts }: any) {
         },
       });
 
-      // await dispatch(setPosts(response.data));
+      await dispatch(setPosts(response.data));
     } catch (error) {}
   }
 

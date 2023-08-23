@@ -4,13 +4,13 @@ import { setSigned } from "../Redux/signedReducer";
 import { RootState } from "../Redux/store";
 import { useNavigate } from "react-router-dom";
 import PostCreation from "./PostCreation";
-import { postMenuContext } from "./HomePage";
+import { postMenuContext } from "../Contexts/postMenuContext";
 
 function Menu() {
   const [showMenu, setShowMenu] = useState(false);
   const [postClicked, setPostClicked] = useState(false);
 
-  const postModal = useContext(postMenuContext);
+  const { postModal, setPostModal } = useContext(postMenuContext);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,11 +35,14 @@ function Menu() {
     { section: "Profile", icon: "fa-solid fa-user", class: "sm:flex hidden" },
     { section: "more", icon: "fa-solid fa-bars", class: "sm:flex hidden" },
   ];
+  console.log("postModa: ", postModal);
 
   function makeAPost() {
     if (user.signed) {
       console.log("postModal: ", postModal);
-      setPostClicked(!postClicked);
+      setPostModal(!postModal);
+      // setPostModal(!postModal);
+      // setPostClicked(!postClicked);
     } else {
       navigate("/auth");
     }
@@ -107,9 +110,9 @@ function Menu() {
           </div>
         </div>
       </div>
-      {postClicked && (
+      {postModal && (
         <div className="fixed flex justify-center items-center border-white w-full h-full left-[0rem]   bg-black place-items-center bg-opacity-50 ">
-          <div className="relative w-1/2 h-1/2 border-2 rounded-xl">
+          <div className="relative w-1/2 h-1/2 rounded-xl">
             <PostCreation />;
           </div>
         </div>
