@@ -49,7 +49,7 @@ function Menu() {
   }
   return (
     <div
-      className=" text-white fixed z-10
+      className=" text-white fixed z-10 
                   bottom-0 w-full h-[10%] flex justify-between bg-[#15202B] shadow-lg text-[24px]  border-gray-600
                    sm:w-[100%]   sm:flex-col 
                   sm:relative sm:h-[100%] 
@@ -113,7 +113,7 @@ function Menu() {
       {postModal && (
         <div className="fixed flex justify-center items-center border-white w-full h-full left-[0rem]   bg-black place-items-center bg-opacity-50 ">
           <div className="relative w-1/2 h-1/2 rounded-xl">
-            <PostCreation />;
+            <PostCreation />
           </div>
         </div>
       )}
