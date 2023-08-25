@@ -9,6 +9,7 @@ import { postMenuContext } from "../Contexts/postMenuContext";
 function Menu() {
   const [showMenu, setShowMenu] = useState(false);
   const [postClicked, setPostClicked] = useState(false);
+  const [selectedMenu, setSelectedMenu] = useState<string>("");
 
   const { postModal, setPostModal } = useContext(postMenuContext);
 
@@ -33,7 +34,12 @@ function Menu() {
       class: "sm:flex hidden",
     },
     { section: "Profile", icon: "fa-solid fa-user", class: "sm:flex hidden" },
-    { section: "more", icon: "fa-solid fa-bars", class: "sm:flex hidden" },
+    {
+      section: "settings",
+      icon: "fa-solid fa-bars",
+      class: "sm:flex hidden",
+      path: "/settings",
+    },
   ];
   console.log("postModa: ", postModal);
 
@@ -67,7 +73,20 @@ function Menu() {
         </div>
         {menuItems.map((item) => (
           <p
-            className={`${item.class} flex justify-center xl:justify-start items-center  hover:bg-[#142436] hover:rounded-full px-2 cursor-pointer sm:w-full sm:py-2 gap-5`}
+            onClick={(e) => {
+              setSelectedMenu(item.section);
+              if (item.section == "settings") {
+                navigate("/settings");
+              } else {
+                navigate("/");
+              }
+              console.log(e.target);
+            }}
+            className={`${item.class} ${
+              item.section == selectedMenu
+                ? "border-b hover:rounded-none font-bold "
+                : ""
+            } flex justify-center xl:justify-start items-center bg-[#15202B]  hover:bg-[#142436] hover:rounded-full px-2 cursor-pointer sm:w-full sm:py-2 gap-5`}
           >
             <i className={item.icon}></i>
             <p className="relative hidden xl:block ">{item.section}</p>

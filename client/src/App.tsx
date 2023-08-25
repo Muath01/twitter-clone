@@ -6,16 +6,35 @@ import HomePage from "./component/HomePage";
 import Resgister from "./component/Register";
 import { Route, Routes } from "react-router-dom";
 import Auth from "./component/Auth";
+import PostsSections from "./component/PostsSections";
+import { useSelector } from "react-redux";
+import { RootState } from "./Redux/store";
+import Settings from "./component/Settings";
 
 function App() {
+  const postsRedux = useSelector((state: RootState) => state.postsRedux);
+  const user = useSelector((state: RootState) => state.setSigned);
   return (
     <>
       {/* <HomePage /> */}
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/"
+          element={
+            <HomePage
+              middleComponent={
+                <PostsSections user={user} postsRedux={postsRedux} />
+              }
+            />
+          }
+        />
         <Route path="/auth" element={<Auth />} />
         <Route path="/register" element={<Resgister />} />
+        <Route
+          path="/settings"
+          element={<HomePage middleComponent={<Settings />} />}
+        />
       </Routes>
     </>
   );

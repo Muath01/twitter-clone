@@ -8,7 +8,7 @@ type BrowseSectionProps = {
 };
 
 function BrowseSection({ user }: BrowseSectionProps) {
-  const [activeTab, setActiveTab] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<string | null>("for you");
 
   //   const user = useSelector((state: RootState) => state.setSigned);
 
