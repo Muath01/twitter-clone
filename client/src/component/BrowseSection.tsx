@@ -24,8 +24,9 @@ function BrowseSection({ user }: BrowseSectionProps) {
 
   return (
     <div className=" border-b dark:border-gray-300 border-gray-600 h-[7rem] relative flex justify-center gap-10 dark:bg-white ">
-      <div className="text-white bg-white dark:bg-black rounded-[100%] h-[40px] w-[40px] absolute left-3 top-1">
-        <p className="bg-red-400 ml-10 ">{user.username}</p>
+      <div className="text-white bg-white dark:bg-gray-300 rounded-[100%] h-[40px] w-[40px] absolute left-3 top-1 flex border-2 ">
+        <i className="fa-regular fa-user text-black dark:text-white text-[24px] relative top-[15%] text-center left-[20%] "></i>
+        <p className=" ml-5 ">{user.username}</p>
       </div>
       <div className="">
         <i className="fa-brands fa-twitter text-white text-[24px] mt-1  "></i>
