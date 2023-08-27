@@ -23,15 +23,15 @@ function BrowseSection({ user }: BrowseSectionProps) {
   }
 
   return (
-    <div className=" border-b border-gray-600 h-[7rem] relative flex justify-center gap-10 ">
-      <div className="text-white bg-white rounded-[100%] h-[40px] w-[40px] absolute left-3 top-1">
-        c<p className="bg-red-400 ml-10 ">{user.username}</p>
+    <div className=" border-b dark:border-gray-300 border-gray-600 h-[7rem] relative flex justify-center gap-10 dark:bg-white ">
+      <div className="text-white bg-white dark:bg-black rounded-[100%] h-[40px] w-[40px] absolute left-3 top-1">
+        <p className="bg-red-400 ml-10 ">{user.username}</p>
       </div>
       <div className="">
         <i className="fa-brands fa-twitter text-white text-[24px] mt-1  "></i>
       </div>
       <div
-        className={`h-1/2 absolute w-1/2 bottom-0 left-0 flex justify-center items-center text-gray-400 font-bold hover:bg-[#192d3d] cursor-pointer
+        className={`h-1/2 absolute w-1/2 bottom-0 left-0 flex justify-center items-center text-gray-400 font-bold hover:bg-[#192d3d] dark:hover:bg-[#ececec] cursor-pointer
     
     
     `}
@@ -48,7 +48,7 @@ function BrowseSection({ user }: BrowseSectionProps) {
         </p>
       </div>
       <div
-        className={` h-1/2 absolute bottom-0 w-1/2 right-0 flex justify-center items-center text-gray-400 font-bold  hover:bg-[#192d3d] cursor-pointer
+        className={` h-1/2 absolute bottom-0 w-1/2 right-0 flex justify-center items-center text-gray-400 font-bold  hover:bg-[#192d3d] dark:hover:bg-[#ececec] cursor-pointer
    
     `}
         onClick={(e) => {

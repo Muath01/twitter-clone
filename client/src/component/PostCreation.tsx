@@ -36,7 +36,7 @@ function PostCreation({ getPosts }: any) {
 
   return (
     <>
-      <div className="h-[10rem] bg-[#15202B] hidden sm:block  relative border-b  ">
+      <div className="h-[10rem] bg-[#15202B] dark:bg-white hidden sm:block  relative border-b  ">
         {/* <input
           type="text"
           className="bg-[#15202B] border-none bg-none absolute left-[20%] top-2 w-full focus:outline-none text-white"
@@ -50,7 +50,7 @@ function PostCreation({ getPosts }: any) {
           id=""
           placeholder="What is hapenning?!"
           cols={0}
-          className="bg-[#15202B] border-none bg-none absolute left-[20%]  w-[80%] outline-none resize-none focus:outline-none text-white"
+          className="bg-[#15202B] dark:bg-white dark:text-black border-none bg-none absolute left-[20%]  w-[80%] outline-none resize-none focus:outline-none text-white"
           rows={4}
         >
           {"hello"}
@@ -63,7 +63,9 @@ function PostCreation({ getPosts }: any) {
             createPost();
             // getPosts();
           }}
-          className="absolute right-2 text-white bottom-2 bg-[#359BF0] px-5 py-2 rounded-full"
+          className={`absolute right-2 text-white bottom-2  px-5 py-2 rounded-full ${
+            postContent != "" ? "bg-[#359BF0]" : "bg-[#8ECBF6]"
+          }`}
         >
           Post
         </button>

@@ -52,9 +52,9 @@ function Posts({ post }: any) {
   }, [post.likedBy, user._id]);
 
   return (
-    <div className="border-b bg-[#15202B] hover:bg-[#162431] border-gray-600 min-h-[15%] w-full h-auto  relative cursor-pointer flex flex-col gap-2 items-center justify-end pt-8 pb-[1.5rem] ">
+    <div className="border-b bg-[#15202B]  dark:bg-white dark:text-black hover:bg-[#162431] dark:border-gray-300 border-gray-600 min-h-[15%] w-full h-auto  relative cursor-pointer flex flex-col gap-2 items-center justify-end pt-8 pb-[1.5rem] ">
       <div className=" absolute left-2 top-2 flex gap-2     text-white h-auto w-1/2">
-        <div className="w-[40px] h-[40px] rounded-[100%] bg-white relative "></div>
+        <div className="w-[40px] h-[40px] rounded-[100%] bg-white dark:bg-black relative "></div>
         <p>{post.username}</p>
       </div>
       <div className="text-left w-4/5 h-auto justify-self-end left-5 relative">

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DarkMode from "./DarkMode";
 
 function Settings() {
-  const [selectedMenu, setSelectedMenu] = useState<string>();
+  const [selectedMenu, setSelectedMenu] = useState<string>("");
   const [displayedSetting, setDisplayedSetting] = useState<
     string | JSX.Element
   >();
@@ -36,12 +36,14 @@ function Settings() {
 
   return (
     <>
-      <div className="flex flex-col gap-4 w-[40%]">
+      <div className="flex flex-col gap-4 w-[40%] h-full dark:text-black ">
         <div className="flex flex-col  ml-2 mt-2  h-[57%] ">
-          <h1 className=" text-white text-[28px] text-left mb-10 font-bold ">
+          <h1 className=" text-white text-[28px] text-left mb-10 font-bold dark:text-black ">
             Settings
           </h1>
-          <h1 className="text-left text-white text-[28px] mb-3">Privacy</h1>
+          <h1 className="text-left text-white text-[28px] mb-3 dark:text-black">
+            Privacy
+          </h1>
           {menuItems.slice(0, 3).map((item) => (
             <p
               onClick={(e) => {
@@ -54,7 +56,7 @@ function Settings() {
               ? "border-r-[3px] border-[#359AEE]"
               : ""
           }
-          px-2 hover:bg-[#192d3d] cursor-pointer text-left py-3 text-white text-[20px]  flex justify-between items-center`}
+          px-2 hover:bg-[#192d3d] dark:hover:bg-[#ececec] dark:text-black cursor-pointer text-left py-3 text-white text-[20px]  flex justify-between items-center`}
             >
               <span className="flex flex-col">
                 {item.section}
@@ -68,13 +70,13 @@ function Settings() {
               ></i>
             </p>
           ))}
-          <p className="text-left text-white mt-10">
+          <p className="text-left text-white  dark:text-black mt-10">
             These settings apply to this browser or device while you’re logged
             out. They don’t have any effect when you’re logged in.
           </p>
         </div>
         <div className="border-t  w-full">
-          <h1 className=" text-white text-[22px] text-left mb-10  ml-2 mt-2 ">
+          <h1 className=" text-white dark:text-black text-[22px] text-left mb-10  ml-2 mt-2 ">
             General
           </h1>
           {menuItems.slice(-2).map((item) => (
@@ -86,10 +88,10 @@ function Settings() {
               className={`
           ${
             selectedMenu == item.section
-              ? "border-r-[3px] border-[#359AEE]"
+              ? "border-r-[3px] border-[#359AEE] "
               : ""
           }
-          px-2 hover:bg-[#192d3d] cursor-pointer text-left py-3 text-white text-[20px]  flex justify-between items-center`}
+          px-2 hover:bg-[#192d3d] dark:hover:bg-[#ececec] dark:text-black cursor-pointer text-left py-3 text-white text-[20px]  flex justify-between items-center`}
             >
               <span className="flex flex-col">
                 {item.section}
@@ -106,15 +108,17 @@ function Settings() {
         </div>
       </div>
 
-      <div className=" w-[60%]">
-        <h1 className=" text-white text-[22px] text-left mb-10  ml-3 mt-3 ">
+      <div className=" w-[60%] h-full ">
+        <h1 className=" text-white dark:text-black text-[22px] text-left mb-10  ml-3 mt-3 ">
           {selectedMenu}
         </h1>
         <div className="relative  w-full">
           <h1 className="text-white  text-[26px] text-middle mb-10  ml-3 mt-3 ">
-            {selectedMenu != "Display" ? "Settings are unavailable" : ""}
+            {selectedMenu != "Display" && selectedMenu != ""
+              ? "Settings are unavailable"
+              : ""}
           </h1>
-          <p className="text-white px-20">
+          <p className="text-white dark:text-black h-full  w-full">
             {displayedSetting as string | JSX.Element}
           </p>
         </div>

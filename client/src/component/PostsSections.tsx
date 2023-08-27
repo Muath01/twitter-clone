@@ -11,7 +11,7 @@ type BrowseSectionProps = {
 };
 function PostsSections({ user, postsRedux }: BrowseSectionProps) {
   return (
-    <div className="bg-[#15202B]  min-h-full h-auto  w-full absolute pb-12">
+    <div className="bg-[#15202B] min-h-full h-auto  w-full absolute pb-12">
       <BrowseSection user={user} />
       {/* The profile header and the for you & following tbas */}
       {user.signed ? <PostCreation /> : ""}

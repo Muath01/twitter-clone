@@ -3,10 +3,12 @@ import { configureStore } from "@reduxjs/toolkit";
 // import jobReducer from "./jobReducer";
 import postReducer from "./postsReducer";
 import signedReducer from "./signedReducer";
+import displayReducer from "./displayReducer";
 export const store = configureStore({
   reducer: {
     postsRedux: postReducer,
     setSigned: signedReducer,
+    displayRedux: displayReducer,
     // setSigned: signedReducer,
     // saveJobs: jobReducer,
   },

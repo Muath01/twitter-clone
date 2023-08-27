@@ -56,10 +56,10 @@ function Menu() {
   return (
     <div
       className=" text-white fixed z-10 
-                  bottom-0 w-full h-[10%] flex justify-between bg-[#15202B] shadow-lg text-[24px]  border-gray-600
+                  bottom-0 w-full h-[10%] flex justify-between bg-[#15202B]  text-[24px] 
                    sm:w-[100%]   sm:flex-col 
                   sm:relative sm:h-[100%] 
-                  border md:items-end
+                   md:items-end dark:bg-white
        "
     >
       <div className=" xl:text-[20px] text-[25px] flex justify-around items-center  w-full relative  h-full sm:flex-col sm:gap-[1rem]  md:gap-3 xl:gap-2 xl:items-start  md:w-3/5  sm:items-center sm:justify-start ">
@@ -68,7 +68,7 @@ function Menu() {
             onClick={(e) => {
               navigate("/");
             }}
-            className="fa-brands fa-twitter text-white text-[24px] mt-1  "
+            className="fa-brands fa-twitter text-white dark:text-black text-[24px] mt-1  "
           ></i>
         </div>
         {menuItems.map((item) => (
@@ -83,10 +83,8 @@ function Menu() {
               console.log(e.target);
             }}
             className={`${item.class} ${
-              item.section == selectedMenu
-                ? "border-b hover:rounded-none font-bold "
-                : ""
-            } flex justify-center xl:justify-start items-center bg-[#15202B]  hover:bg-[#142436] hover:rounded-full px-2 cursor-pointer sm:w-full sm:py-2 gap-5`}
+              item.section == selectedMenu ? "text-[21px] font-bold " : ""
+            } flex justify-center xl:justify-start items-center bg-[#15202B]  hover:bg-[#142436] dark:bg-white dark:hover:bg-[#ececec] dark:text-black hover:rounded-full px-2 cursor-pointer sm:w-full sm:py-2 gap-5`}
           >
             <i className={item.icon}></i>
             <p className="relative hidden xl:block ">{item.section}</p>
@@ -103,7 +101,7 @@ function Menu() {
         </div>
         <div className="xl:block hidden absolute bottom-0  w-full right-3  ">
           {showMenu ? (
-            <div className="bg-[#15202B] cursor-pointer  border border-gray-600 rounded-e-xl relative bottom-2 h-40  ">
+            <div className="bg-[#15202B] dark:bg-white text-black cursor-pointer  border border-gray-600 rounded-e-xl relative bottom-2 h-40  ">
               <p
                 onClick={(e) => {
                   let whoLogged = { isLogged: false, user: "" };
@@ -111,7 +109,7 @@ function Menu() {
                   localStorage.setItem("loggedUser", whoLoggedObjectString);
                   location.reload();
                 }}
-                className=" text-white absolute hover:bg-[#131e29] hover:rounded-lg bottom-1 w-full rounded-xl h-10 flex items-center justify-center cursor-pointer"
+                className=" text-white dark:text-black dark:hover:bg-slate-200 absolute hover:bg-[#131e29] hover:rounded-lg bottom-1 w-full rounded-xl h-10 flex items-center justify-center cursor-pointer"
               >
                 Log out
               </p>
@@ -121,16 +119,16 @@ function Menu() {
           )}
           <div
             onClick={(e) => setShowMenu(!showMenu)}
-            className="w-full bg-[#15202B] cursor-pointer hover:bg-[#131e29] rounded-3xl py-2 relative flex justify-start items-center "
+            className="w-full  bg-[#15202B] dark:hover:bg-slate-200 mb-1 dark:bg-white dark:text-black dark:border dark:border-gray-400 cursor-pointer hover:bg-[#131e29] rounded-3xl py-2 relative flex justify-start items-center "
           >
-            <p className=" rounded-full bg-white p-6 relative left-2 "></p>
+            <p className=" rounded-full bg-white p-6 dark:bg-black relative left-2 "></p>
             <div className="relative left-3 top-1 ">{user.username}</div>
-            <i className="fa-solid fa-ellipsis absolute right-0 top-1/2 translate-y-[-20%] "></i>
+            <i className="fa-solid fa-ellipsis absolute right-2 top-1/2 translate-y-[-20%] "></i>
           </div>
         </div>
       </div>
       {postModal && (
-        <div className="fixed flex justify-center items-center border-white w-full h-full left-[0rem]   bg-black place-items-center bg-opacity-50 ">
+        <div className="fixed flex justify-center items-center   border-white w-full h-full left-[0rem]   bg-black place-items-center bg-opacity-50 ">
           <div className="relative w-1/2 h-1/2 rounded-xl">
             <PostCreation />
           </div>
