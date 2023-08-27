@@ -12,6 +12,7 @@ function Posts({ post }: any) {
   const [hello, setHello] = useState("");
   const dispatch = useDispatch();
 
+  //Like functionality
   async function likePost(e: any) {
     if (!user.signed) {
       // if user attempts to like whilst not logged in, direct them to the login section
@@ -25,31 +26,13 @@ function Posts({ post }: any) {
         username: user.username, //user likes and username
       });
 
-      await dispatch(setPosts(response.data.post));
+      dispatch(setPosts(response.data.post));
     } catch (err: any) {
       console.log("error", err.message);
     }
   }
 
-  // const liked = post.likedBy.some((item: any) => item._id == user._id);
-  const [liked, setLiked] = useState(
-    // user._id &&
-    // post.likeBy &&
-    post.likedBy.some((item: any) => item._id === user._id)
-  );
-  // const liked =
-  // user._id &&
-  // post.likeBy &&
-  //   post.likedBy.some((item: any) => item._id === user._id);
-
-  // console.log("user: ", user);
-  // console.log("post: ", post.likedBy);
-
-  useEffect(() => {
-    // user._id &&
-    // post.likeBy &&
-    setLiked(post.likedBy.some((item: any) => item._id === user._id));
-  }, [post.likedBy, user._id]);
+  const liked = post.likedBy.some((item: any) => item._id === user._id);
 
   return (
     <div className="border-b bg-[#15202B]  dark:bg-white dark:text-black hover:bg-[#162431] dark:border-gray-300 border-gray-600 min-h-[15%] w-full h-auto  relative cursor-pointer flex flex-col gap-2 items-center justify-end pt-8 pb-[1.5rem] ">

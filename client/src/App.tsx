@@ -10,6 +10,12 @@ import PostsSections from "./component/PostsSections";
 import { useSelector } from "react-redux";
 import { RootState } from "./Redux/store";
 import Settings from "./component/Settings";
+import Lists from "./incomplete-sections/Lists";
+import BookMarks from "./incomplete-sections/BookMarks";
+import Communities from "./incomplete-sections/Communities";
+import Notifications from "./incomplete-sections/Notifications";
+import Messages from "./incomplete-sections/Messages";
+import Profile from "./component/Profile";
 
 function App() {
   const postsRedux = useSelector((state: RootState) => state.postsRedux);
@@ -37,11 +43,36 @@ function App() {
             />
           }
         />
-        <Route path="/auth" element={<Auth />} />
         <Route path="/register" element={<Resgister />} />
+        <Route path="/auth" element={<Auth />} />
         <Route
           path="/settings"
           element={<HomePage middleComponent={<Settings />} />}
+        />
+
+        <Route
+          path="/notifications"
+          element={<HomePage middleComponent={<Notifications />} />}
+        />
+        <Route
+          path="/messages"
+          element={<HomePage middleComponent={<Messages />} />}
+        />
+        <Route
+          path="/lists"
+          element={<HomePage middleComponent={<Lists />} />}
+        />
+        <Route
+          path="/bookmarks"
+          element={<HomePage middleComponent={<BookMarks />} />}
+        />
+        <Route
+          path="/Communities"
+          element={<HomePage middleComponent={<Communities />} />}
+        />
+        <Route
+          path="/profile"
+          element={<HomePage middleComponent={<Profile />} />}
         />
       </Routes>
     </div>

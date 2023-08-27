@@ -29,7 +29,7 @@ function Menu() {
       class: "sm:flex hidden",
     },
     {
-      section: "communities",
+      section: "Communities",
       icon: "fa-solid fa-user-group",
       class: "sm:flex hidden",
     },
@@ -38,7 +38,6 @@ function Menu() {
       section: "settings",
       icon: "fa-solid fa-bars",
       class: "sm:flex hidden",
-      path: "/settings",
     },
   ];
   console.log("postModa: ", postModal);
@@ -75,12 +74,31 @@ function Menu() {
           <p
             onClick={(e) => {
               setSelectedMenu(item.section);
-              if (item.section == "settings") {
-                navigate("/settings");
-              } else {
-                navigate("/");
+              switch (item.section) {
+                case "settings":
+                  navigate("/settings");
+                  break;
+                case "Notification":
+                  navigate("/notifications");
+                  break;
+                case "Messages":
+                  navigate("/messages");
+                  break;
+                case "Lists":
+                  navigate("/lists");
+                  break;
+                case "BookMark":
+                  navigate("/bookmarks");
+                  break;
+                case "Communities":
+                  navigate("/communities");
+                  break;
+                case "Profile":
+                  navigate("/profile");
+                  break;
+                default:
+                  navigate("/");
               }
-              console.log(e.target);
             }}
             className={`${item.class} ${
               item.section == selectedMenu ? "text-[21px] font-bold " : ""
