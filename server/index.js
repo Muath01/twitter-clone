@@ -53,6 +53,21 @@ app.post("/register", async (req, res) => {
   }
 });
 
+app.post("/comment", async (req, res) => {
+  console.log("commentmXxx:", req.body);
+
+  const { username, post: postId } = req.body;
+
+  try {
+    const { comments: postComments } = await PostModel.findOne({ _id: postId });
+    const { _id: userId } = await UserModel.findOne({ username: username });
+
+    console.log(userId);
+    console.log("POSTComms: ", postComments);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
 app.get("/auth", async (req, res) => {
   const { email, password } = req.query.loginInfo;
 
@@ -140,7 +155,11 @@ app.post("/like", async (req, res) => {
     console.log("post liked succefully");
   }
 });
+
+//
 app.post("/post", async (req, res) => {
+  console.log("post: ", req.body);
+
   try {
     const createPost = await PostModel({
       username: req.body.username,

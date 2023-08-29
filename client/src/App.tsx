@@ -49,7 +49,6 @@ function App() {
           path="/settings"
           element={<HomePage middleComponent={<Settings />} />}
         />
-
         <Route
           path="/notifications"
           element={<HomePage middleComponent={<Notifications />} />}

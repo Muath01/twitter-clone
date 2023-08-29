@@ -7,10 +7,12 @@ import {
 import { act } from "react-dom/test-utils";
 
 export interface PostType {
+  _id: string;
+  username: String;
   content: String;
   likes: Number;
-  _id: string;
   likeyBy: Array<String>;
+  comments: Array<String>;
 }
 
 const initialState: PostType[] = [];

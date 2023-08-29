@@ -5,7 +5,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { PostType, setPosts } from "../Redux/postsReducer";
 import { RootState } from "../Redux/store";
 import { postMenuContext } from "../Contexts/postMenuContext";
-function PostCreation({ getPosts }: any) {
+
+function PostCreation({
+  commentSection,
+  post,
+}: {
+  commentSection?: boolean;
+  post?: any;
+}) {
+  /* This bool check if the PostCreation is called
+                                                                            from the comment section or the HomePage, i.e. should it 
+                                                                            post a comment to the backend or a post. 
+                                                                          */
+
   const [postContent, setPostContent] = useState("");
 
   const { postModal, setPostModal } = useContext(postMenuContext);
@@ -13,6 +25,20 @@ function PostCreation({ getPosts }: any) {
   const user = useSelector((state: RootState) => state.setSigned);
 
   const dispatch = useDispatch();
+
+  console.log("fullPost: ", post);
+
+  async function createComment() {
+    try {
+      await axios.post("http://localhost:3001/comment", {
+        content: postContent,
+        username: user.username,
+        post: post,
+      });
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  }
 
   async function createPost() {
     setPostModal(false);
@@ -29,7 +55,9 @@ function PostCreation({ getPosts }: any) {
       });
 
       await dispatch(setPosts(response.data));
-    } catch (error) {}
+    } catch (error: any) {
+      console.log(error.message);
+    }
   }
 
   // getPosts();
@@ -60,7 +88,13 @@ function PostCreation({ getPosts }: any) {
             // setLoad("load");
             setPostContent("");
 
-            createPost();
+            // If the commmentSection var is true, it means this is the postCreation componenet called from
+            // the comments section, and thus should make a comment instead of a post
+            if (commentSection) {
+              createComment();
+            } else {
+              createPost();
+            }
             // getPosts();
           }}
           className={`absolute right-2 text-white bottom-2  px-5 py-2 rounded-full ${

@@ -8,12 +8,12 @@ import { useNavigate } from "react-router-dom";
 function Posts({
   post,
   setPostExpanded,
-  clickPost,
+  setPost,
   postExpanded,
 }: {
   post: any;
   setPostExpanded?: (value: boolean | ((prevVar: boolean) => boolean)) => void;
-  clickPost: any;
+  setPost: any;
   postExpanded: boolean;
 }) {
   const user = useSelector((state: RootState) => state.setSigned);
@@ -21,8 +21,6 @@ function Posts({
   const navigate = useNavigate();
   const [hello, setHello] = useState("");
   const dispatch = useDispatch();
-
-  console.log("postExpanded: ", postExpanded);
 
   //Like functionality
   async function likePost(e: any) {
@@ -43,14 +41,16 @@ function Posts({
       console.log("error", err.message);
     }
   }
-  const liked = post.likedBy.some((item: any) => item._id === user._id);
 
+  console.log("PostsX: ", post);
+
+  const liked = post && post.likedBy.some((item: any) => item._id === user._id);
   return (
     <div
       onClick={(e) => {
-        clickPost(post);
+        setPost(post);
         if (!setPostExpanded) return;
-        setPostExpanded(true);
+        console.log("omgg");
       }}
       className="border-b bg-[#15202B]  dark:bg-white dark:text-black hover:bg-[#162431] dark:border-gray-300 border-gray-600 min-h-[15%] w-full h-auto  relative cursor-pointer flex flex-col gap-2 items-center justify-end pt-8 pb-[1.5rem] "
     >
