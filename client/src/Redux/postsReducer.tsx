@@ -23,6 +23,8 @@ export const postReducer = createSlice({
   reducers: {
     setPosts: (state, action) => {
       const post = action.payload;
+
+      console.log("PostsRedux: ", post);
       if (Array.isArray(post)) {
         return [...action.payload];
         console.log("arr");

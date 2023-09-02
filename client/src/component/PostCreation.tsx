@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { PostType, setPosts } from "../Redux/postsReducer";
 import { RootState } from "../Redux/store";
 import { postMenuContext } from "../Contexts/postMenuContext";
+import { setComments } from "../Redux/commentsReducer";
 
 function PostCreation({
   commentSection,
@@ -26,8 +27,6 @@ function PostCreation({
 
   const dispatch = useDispatch();
 
-  console.log("fullPost: ", post);
-
   async function createComment() {
     try {
       await axios.post("http://localhost:3001/comment", {
@@ -35,6 +34,14 @@ function PostCreation({
         username: user.username,
         post: post,
       });
+
+      const response = await axios.get("http://localhost:3001/comment", {
+        params: {
+          postId: post._id,
+        },
+      });
+
+      dispatch(setComments(response.data));
     } catch (error: any) {
       console.log(error.message);
     }
@@ -43,18 +50,10 @@ function PostCreation({
   async function createPost() {
     setPostModal(false);
     try {
-      const postReq = await axios.post("http://localhost:3001/post", {
+      axios.post("http://localhost:3001/post", {
         content: postContent,
         username: user.username,
       });
-
-      const response = await axios.get("http://localhost:3001/posts", {
-        params: {
-          user: "abc",
-        },
-      });
-
-      await dispatch(setPosts(response.data));
     } catch (error: any) {
       console.log(error.message);
     }

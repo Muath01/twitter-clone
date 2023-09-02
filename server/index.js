@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import { ObjectId } from "mongodb";
-import { PostModel } from "./models/Post.js";
+import { CommentModel, PostModel } from "./models/Post.js";
 import bodyParser from "body-parser";
 import { UserModel } from "./models/Users.js";
 const app = express();
@@ -22,6 +22,13 @@ mongoose.connect(
 //     console.log("error", err);
 //   });
 
+// CommentModel.deleteMany({})
+//   .then(() => {
+//     console.log("All documents deleted successfully.");
+//   })
+//   .catch((err) => {
+//     console.log("error", err);
+//   });
 app.post("/register", async (req, res) => {
   // console.log("here: ", req.body);
   const { username, email, password } = req.body.userSignUpInfo;
@@ -36,7 +43,7 @@ app.post("/register", async (req, res) => {
       user[0]?.username != username &&
       user[0]?.email != email
     ) {
-      console.log("Creating new users... ");
+      // console.log("Creating new users... ");
       const createNewUser = await UserModel({
         username,
         email,
@@ -53,17 +60,46 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.post("/comment", async (req, res) => {
-  console.log("commentmXxx:", req.body);
+app.get("/comment", async (req, res) => {
+  console.log("bodyGet: ", req.query);
+  const { postId } = req.query;
+  try {
+    const post = await PostModel.findOne({ _id: postId });
 
-  const { username, post: postId } = req.body;
+    console.log("commss: ", post.comments);
+
+    res.json(post.comments);
+  } catch (error) {
+    console.log(error.message);
+  }
+  // const {postId}
+});
+
+app.post("/comment", async (req, res) => {
+  const { username, post: postId, content } = req.body;
 
   try {
-    const { comments: postComments } = await PostModel.findOne({ _id: postId });
+    const post = await PostModel.findOne({ _id: postId });
     const { _id: userId } = await UserModel.findOne({ username: username });
 
-    console.log(userId);
-    console.log("POSTComms: ", postComments);
+    const newComment = new CommentModel({
+      content: content,
+      username: username,
+      likes: 1,
+    });
+    // newComment.save();
+
+    post.comments.push(newComment);
+
+    await post.save();
+
+    // console.log(user._id);
+    // console.log("comment: ", newComment);
+    // console.log("POSTComms: ", post.comments[0]);
+
+    res.json(post.comments);
+
+    //This is comment?
   } catch (error) {
     console.log(error.message);
   }
@@ -98,6 +134,8 @@ app.get("/auth", async (req, res) => {
 app.get("/posts", async (req, res) => {
   try {
     const posts = await PostModel.find();
+
+    // console.log("posts: ", posts);
     // console.log("POSTid: ", posts[0]);
     res.json(posts);
   } catch (error) {
@@ -118,11 +156,13 @@ app.post("/like", async (req, res) => {
   const userId = await UserModel.findOne({ username }, "_id").exec();
 
   // console.log("post: ", post);
-  const isLiked = post.likedBy.some((obj) => {
-    // console.log("objId: ", obj._id.toString()); //64e07024c7484dab961bb787
-    // console.log("userId: ", userId._id.toString()); // 64e07024c7484dab961bb787
-    return obj._id.equals(userId._id);
-  });
+  const isLiked =
+    post &&
+    post.likedBy.some((obj) => {
+      // console.log("objId: ", obj._id.toString()); //64e07024c7484dab961bb787
+      // console.log("userId: ", userId._id.toString()); // 64e07024c7484dab961bb787
+      return obj._id.equals(userId._id);
+    });
   // console.log("isliked: ", isLiked);
 
   if (isLiked) {

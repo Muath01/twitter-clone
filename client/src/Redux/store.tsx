@@ -4,11 +4,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import postReducer from "./postsReducer";
 import signedReducer from "./signedReducer";
 import displayReducer from "./displayReducer";
+import commentsReducer from "./commentsReducer";
 export const store = configureStore({
   reducer: {
     postsRedux: postReducer,
     setSigned: signedReducer,
     displayRedux: displayReducer,
+    commentsRedux: commentsReducer,
     // setSigned: signedReducer,
     // saveJobs: jobReducer,
   },

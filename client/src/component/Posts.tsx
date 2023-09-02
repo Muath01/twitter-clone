@@ -7,11 +7,13 @@ import { useNavigate } from "react-router-dom";
 
 function Posts({
   post,
+  comment,
   setPostExpanded,
   setPost,
   postExpanded,
 }: {
-  post: any;
+  post?: any;
+  comment?: any;
   setPostExpanded?: (value: boolean | ((prevVar: boolean) => boolean)) => void;
   setPost: any;
   postExpanded: boolean;
@@ -21,6 +23,8 @@ function Posts({
   const navigate = useNavigate();
   const [hello, setHello] = useState("");
   const dispatch = useDispatch();
+
+  // console.log("Post and comment: ", post);
 
   //Like functionality
   async function likePost(e: any) {
@@ -42,9 +46,12 @@ function Posts({
     }
   }
 
-  console.log("PostsX: ", post);
+  // console.log("postContent: ", post);
 
-  const liked = post && post.likedBy.some((item: any) => item._id === user._id);
+  const liked =
+    post &&
+    post.likedBy &&
+    post.likedBy.some((item: any) => item._id === user._id);
   return (
     <div
       onClick={(e) => {

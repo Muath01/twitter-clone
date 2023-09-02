@@ -74,9 +74,9 @@ function HomePage({ middleComponent }: any) {
   }
   const handleSectionClick = () => {};
 
-  const componenetName = middleComponent.type.name;
-  console.log("componenetName: ", componenetName);
-  console.log("componenetName equal: ", componenetName == "PostsSection");
+  const componentName = middleComponent.type.name;
+  const colSpan = componentName === "PostsSections" ? 4 : 7;
+  console.log("componentName: ", componentName);
 
   return (
     <div className=" grid sm:grid-cols-9 sm:grid-rows-1 grid-rows-9 h-full w-full  bg-[#15202B] dark:bg-white relative   ">
@@ -88,11 +88,10 @@ function HomePage({ middleComponent }: any) {
 
         {/* Middle  */}
         <div
-          className={`sm:col-span-7 md:col-span-${
-            componenetName == "PostsSections" ? 4 : 7
-          } xl:col-span-${
-            componenetName == "Settings" ? 7 : 4
-          } row-span-8 order-1 border dark:border-gray-300 border-gray-600  sm:order-2 h-full relative w-full flex overflow-y-scroll`}
+          className={`
+          sm:col-span-7
+          md:col-span-${componentName == "PostsSections" ? 4 : 7}
+           row-span-8 order-1 border dark:border-gray-300 border-gray-600  sm:order-2 h-full relative w-full flex overflow-y-scroll`}
         >
           {/* <PostsSections user={user} postsRedux={postsRedux} /> */}
           {}
@@ -100,7 +99,7 @@ function HomePage({ middleComponent }: any) {
         </div>
 
         {/* Right side */}
-        {componenetName == "PostsSections" ? (
+        {componentName == "PostsSections" ? (
           <div
             onClick={handleSectionClick}
             className="sm:col-span-1 bg-[#15202B] md:col-span-2 xl:col-span-3  sm:block order-3 hidden relative w-full "

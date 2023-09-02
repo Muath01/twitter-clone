@@ -4,6 +4,10 @@ import { signedState } from "../Redux/signedReducer";
 import PostCreation from "./PostCreation";
 import Posts from "./Posts";
 import { PostType } from "../Redux/postsReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../Redux/store";
+import { setComments } from "../Redux/commentsReducer";
+import axios from "axios";
 
 type BrowseSectionProps = {
   user: signedState;
@@ -17,11 +21,27 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
   const outerPostRef = useRef<HTMLDivElement>(null);
   const innerPostRef = useRef<HTMLDivElement>(null);
 
-  console.log("po");
+  //comments from redux
+
+  const comments = useSelector((state: RootState) => state.commentsRedux);
+  const dispatch = useDispatch();
 
   function clickPost(action: any) {
     // setPostExpanded(true);
     // console.log("POST: ", post);
+  }
+  async function getComments() {
+    try {
+      const response = await axios.get("http://localhost:3001/comment", {
+        params: {
+          postId: post?._id,
+        },
+      });
+
+      dispatch(setComments(response.data));
+    } catch (error: any) {
+      console.log(error.message);
+    }
   }
 
   useEffect(() => {
@@ -30,16 +50,18 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
 
       setPost(post);
 
+      console.log("target: ", target.tagName);
+
       if (
         outerPostRef.current?.contains(event.target as Node) &&
-        !(
-          target.tagName == "TEXTAREA"
-        ) /* the text area for post creation is isnide the outerPostRef,
-                                         this check helps prevent opening up a post if user tries to make 
-                                         a new post
-                                        */
+        target.tagName != "TEXTAREA" &&
+        target.tagName != "BUTTON" &&
+        /* the text area for post creation is isnide the outerPostRef, this check helps prevent opening up a post if user tries to make a new post
+         */ target.tagName != "I" &&
+        target.id != "one"
       ) {
         setPostExpanded(true);
+        getComments();
       } else if (!innerPostRef.current?.contains(event.target as Node)) {
         setPostExpanded(false);
       }
@@ -55,6 +77,7 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
     <>
       {!postExpanded ? (
         <div
+          id="one"
           ref={outerPostRef}
           className="bg-[#15202B] min-h-full h-auto  w-full absolute pb-12"
         >
@@ -76,6 +99,7 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
         </div>
       ) : (
         <div
+          id="here"
           ref={innerPostRef}
           className="bg-[#15202B] min-h-full h-auto  w-full absolute pb-12 "
         >
@@ -101,28 +125,15 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
 
           {/* This div will map all the comments made on the post, i.e. the comments found on the post array */}
           <div className=" w-full flex flex-col">
-            <Posts
-              post={post}
-              postExpanded={false}
-              //   setPostExpanded={setPostExpanded}
-              setPost={setPost}
-            />
-          </div>
-          <div className=" w-full flex flex-col">
-            <Posts
-              post={post}
-              postExpanded={false}
-              //   setPostExpanded={setPostExpanded}
-              setPost={setPost}
-            />
-          </div>
-          <div className=" w-full flex flex-col">
-            <Posts
-              post={post}
-              postExpanded={false}
-              //   setPostExpanded={setPostExpanded}
-              setPost={setPost}
-            />
+            {comments.map((comment: any, key: any) => (
+              <Posts
+                key={key}
+                post={comment}
+                setPostExpanded={setPostExpanded}
+                postExpanded={postExpanded}
+                setPost={setPost}
+              />
+            ))}
           </div>
         </div>
       )}
