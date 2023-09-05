@@ -102,7 +102,7 @@ function HomePage({ middleComponent }: any) {
         {componentName == "PostsSections" ? (
           <div
             onClick={handleSectionClick}
-            className="sm:col-span-1 bg-[#15202B] md:col-span-2 xl:col-span-3  sm:block order-3 hidden relative w-full "
+            className="sm:col-span-1 bg-[#15202B] md:col-span-2 xl:col-span-3  md:block order-3 hidden relative w-full "
           >
             <RightBar />
           </div>

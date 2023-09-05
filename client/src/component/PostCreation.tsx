@@ -50,10 +50,18 @@ function PostCreation({
   async function createPost() {
     setPostModal(false);
     try {
-      axios.post("http://localhost:3001/post", {
+      const postReq = await axios.post("http://localhost:3001/post", {
         content: postContent,
         username: user.username,
       });
+
+      const response = await axios.get("http://localhost:3001/posts", {
+        params: {
+          user: "abc",
+        },
+      });
+
+      await dispatch(setPosts(response.data));
     } catch (error: any) {
       console.log(error.message);
     }

@@ -85,7 +85,7 @@ app.post("/comment", async (req, res) => {
     const newComment = new CommentModel({
       content: content,
       username: username,
-      likes: 1,
+      likes: 0,
     });
     // newComment.save();
 

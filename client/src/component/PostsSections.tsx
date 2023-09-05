@@ -125,15 +125,18 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
 
           {/* This div will map all the comments made on the post, i.e. the comments found on the post array */}
           <div className=" w-full flex flex-col">
-            {comments.map((comment: any, key: any) => (
-              <Posts
-                key={key}
-                post={comment}
-                setPostExpanded={setPostExpanded}
-                postExpanded={postExpanded}
-                setPost={setPost}
-              />
-            ))}
+            {comments
+              .slice(0)
+              .reverse()
+              .map((comment: any, key: any) => (
+                <Posts
+                  key={key}
+                  post={comment}
+                  setPostExpanded={setPostExpanded}
+                  postExpanded={postExpanded}
+                  setPost={setPost}
+                />
+              ))}
           </div>
         </div>
       )}
