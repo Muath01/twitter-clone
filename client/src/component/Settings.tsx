@@ -36,7 +36,7 @@ function Settings() {
 
   return (
     <>
-      <div className="flex flex-col gap-4 w-[40%] h-full dark:text-black ">
+      <div className="flex flex-col sm:gap-4 gap-40 w-full sm:w-[40%] h-full dark:text-black ">
         <div className="flex flex-col  ml-2 mt-2  h-[57%] ">
           <h1 className=" text-white text-[28px] text-left mb-10 font-bold dark:text-black ">
             Settings
@@ -70,7 +70,7 @@ function Settings() {
               ></i>
             </p>
           ))}
-          <p className="text-left text-white  dark:text-black mt-10">
+          <p className="text-left sm:block hidden text-white  dark:text-black mt-10">
             These settings apply to this browser or device while you’re logged
             out. They don’t have any effect when you’re logged in.
           </p>

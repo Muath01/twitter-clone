@@ -109,10 +109,10 @@ function Menu() {
           </p>
         ))}
 
-        <div className="xl:flex hidden flex-col   ">
+        <div className="xl:flex  flex-col relative md:right-8 xl:right-0  ">
           <button
             onClick={(e) => makeAPost()}
-            className="bg-[#359BF0] xl:flex justify-center items-center hidden rounded-full py-2 px-14 w-[92%] absolute text-[16px] "
+            className="bg-[#359BF0] xl:flex  justify-center items-center  rounded-full md:py-2  md:px-20 md:w-full px-4 py-5 sm:relative absolute sm:right-2 right-4 sm:bottom-0 bottom-20 text-[16px] "
           >
             Post
           </button>
@@ -146,8 +146,8 @@ function Menu() {
         </div>
       </div>
       {postModal && (
-        <div className="fixed flex justify-center items-center   border-white w-full h-full left-[0rem]   bg-black place-items-center bg-opacity-50 ">
-          <div className="relative w-1/2 h-1/2 rounded-xl">
+        <div className="fixed flex justify-center items-center   border-white w-full h-full left-[0rem]   bottom-0  bg-black place-items-center bg-opacity-50 ">
+          <div className="relative sm:w-1/2 sm:h-1/2 w-4/5 h-2/5  rounded-xl">
             <PostCreation />
           </div>
         </div>

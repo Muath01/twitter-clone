@@ -71,7 +71,7 @@ function PostCreation({
 
   return (
     <>
-      <div className="h-[10rem] bg-[#15202B] dark:bg-white hidden sm:block  relative border-b  ">
+      <div className="h-[10rem] bg-[#15202B] dark:bg-white block  relative border-b  ">
         {/* <input
           type="text"
           className="bg-[#15202B] border-none bg-none absolute left-[20%] top-2 w-full focus:outline-none text-white"
