@@ -29,7 +29,7 @@ mongoose.connect(
 
 // console.log("location: ", location);
 
-// app.use(express.static(path.join(__dirname, "../client/dist")));
+app.use(express.static(path.join(__dirname, "../client/dist")));
 
 // app.get("*", (req, res) => {
 //   res.redirect("/");
