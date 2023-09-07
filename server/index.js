@@ -6,6 +6,13 @@ import { CommentModel, PostModel } from "./models/Post.js";
 import bodyParser from "body-parser";
 import { UserModel } from "./models/Users.js";
 import { dirname } from "path";
+import commentsRoute from "./routes/Comments.js";
+import postsRoute from "./routes/Posts.js";
+import authRoute from "./routes/Auth.js";
+import registerRoute from "./routes/Register.js";
+import likeRoute from "./routes/Like.js";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
 app.use(express.json());
@@ -15,6 +22,37 @@ app.use(bodyParser.json());
 mongoose.connect(
   "mongodb+srv://muathkhalifa:twitterClone@twitter-clone.urccaxk.mongodb.net/twitter-clone?retryWrites=true&w=majority"
 );
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const location = path.dirname(path.join(__dirname, "../client/dist"));
+
+console.log("location: ", location);
+
+app.use(express.static(path.join(__dirname, "../client/dist")));
+
+app.get("*", (req, res) => {
+  res.redirect("/");
+  // res.sendFile(path.join(__dirname, "client/build", "index.html"));
+});
+
+// // Define a catch-all route
+// app.get(["/contact", "/chart", "/test", "/payment"], (req, res) => {
+//   res.sendFile(path.join(__dirname, "client/build", "index.html"));
+// });
+app.use("/comments", commentsRoute);
+app.use("/posts", postsRoute);
+app.use("/auth", authRoute);
+app.use("/register", registerRoute);
+app.use("/like", likeRoute);
+
+// Assuming you have the user ID and post ID available
+
+// Find the post by ID
+
+app.listen(3001, () => console.log("server started...s"));
+
+//Use to clear databse.
 
 // PostModel.deleteMany({})
 //   .then(() => {
@@ -31,194 +69,3 @@ mongoose.connect(
 //   .catch((err) => {
 //     console.log("error", err);
 //   });
-
-app.get("/", async (req, res) => {
-  app.use(express.static(path.join(__dirname, "client/dist")));
-});
-
-app.post("/register", async (req, res) => {
-  // console.log("here: ", req.body);
-  const { username, email, password } = req.body.userSignUpInfo;
-
-  // console.log("username: ", username);
-
-  try {
-    const user = await UserModel.find({ username: username });
-
-    if (
-      user.length == 0 &&
-      user[0]?.username != username &&
-      user[0]?.email != email
-    ) {
-      // console.log("Creating new users... ");
-      const createNewUser = await UserModel({
-        username,
-        email,
-        password,
-      });
-
-      await createNewUser.save();
-      res.json({ success: true });
-    } else {
-      res.json({ success: false });
-    }
-  } catch (error) {
-    console.log("error unable to post stuff");
-  }
-});
-
-app.get("/comment", async (req, res) => {
-  console.log("bodyGet: ", req.query);
-  const { postId } = req.query;
-  try {
-    const post = await PostModel.findOne({ _id: postId });
-
-    console.log("commss: ", post.comments);
-
-    res.json(post.comments);
-  } catch (error) {
-    console.log(error.message);
-  }
-  // const {postId}
-});
-
-app.post("/comment", async (req, res) => {
-  const { username, post: postId, content } = req.body;
-
-  try {
-    const post = await PostModel.findOne({ _id: postId });
-    const { _id: userId } = await UserModel.findOne({ username: username });
-
-    const newComment = new CommentModel({
-      content: content,
-      username: username,
-      likes: 0,
-    });
-    // newComment.save();
-
-    post.comments.push(newComment);
-
-    await post.save();
-
-    // console.log(user._id);
-    // console.log("comment: ", newComment);
-    // console.log("POSTComms: ", post.comments[0]);
-
-    res.json(post.comments);
-
-    //This is comment?
-  } catch (error) {
-    console.log(error.message);
-  }
-});
-app.get("/auth", async (req, res) => {
-  const { email, password } = req.query.loginInfo;
-
-  try {
-    const user = await UserModel.find({ email: email });
-
-    // console.log("user: ", user[0].email, "userpass: ", user[0].password);
-
-    // console.log("emai: ", email, "password: ", password);
-
-    if (
-      user.length != 0 &&
-      user[0].email == email &&
-      user[0].password == password
-    ) {
-      console.log("Loggin in ");
-
-      res.json({ success: true, user: user[0] });
-    } else {
-      console.log("can't login");
-      res.json({ success: false, username: user[0].username });
-    }
-  } catch (error) {
-    console.log("error: ", error.message);
-  }
-});
-
-app.get("/posts", async (req, res) => {
-  try {
-    const posts = await PostModel.find();
-
-    // console.log("posts: ", posts);
-    // console.log("POSTid: ", posts[0]);
-    res.json(posts);
-  } catch (error) {
-    console.log("err: ", error.message);
-    res.json({ success: "false" });
-  }
-});
-
-// Assuming you have the user ID and post ID available
-
-// Find the post by ID
-
-app.post("/like", async (req, res) => {
-  console.log(req.body);
-
-  const { id: postId, username } = req.body;
-  let post = await PostModel.findById(postId).exec();
-  const userId = await UserModel.findOne({ username }, "_id").exec();
-
-  // console.log("post: ", post);
-  const isLiked =
-    post &&
-    post.likedBy.some((obj) => {
-      // console.log("objId: ", obj._id.toString()); //64e07024c7484dab961bb787
-      // console.log("userId: ", userId._id.toString()); // 64e07024c7484dab961bb787
-      return obj._id.equals(userId._id);
-    });
-  // console.log("isliked: ", isLiked);
-
-  if (isLiked) {
-    console.log("user has already like the post! ");
-
-    console.log("post-before: ", post.likedBy); //post-before:  [ { _id: new ObjectId("64e07024c7484dab961bb787") } ]
-
-    post.likedBy = post.likedBy.filter(
-      (item) => item._id.toString() !== userId._id.toString()
-    );
-    post.likes--;
-    await post.save();
-    console.log("post-after: ", post.likedBy); //post-after:  [ { _id: new ObjectId("64e07024c7484dab961bb787") } ]
-    res.json({ post, liked: true });
-  } else {
-    // User has not liked the post, add user ID to likedBy array and increment likes count
-    post.likedBy.push(userId);
-    post.likes++;
-
-    // Save the updated post
-    post = await post.save();
-
-    // Convert the post object to a plain JavaScript object
-    const plainPost = post.toObject();
-
-    // Send the response with the plainPost object
-    await res.json({ post, liked: true });
-
-    // Post liked successfully
-    console.log("post liked succefully");
-  }
-});
-
-//
-app.post("/post", async (req, res) => {
-  console.log("post: ", req.body);
-
-  try {
-    const createPost = await PostModel({
-      username: req.body.username,
-      content: req.body.content,
-    });
-
-    await createPost.save();
-    res.json({ message: "success" });
-  } catch (error) {
-    console.log("error: ", error.message);
-    res.json({ success: "false" });
-  }
-});
-
-app.listen(3001, () => console.log("server started...s"));

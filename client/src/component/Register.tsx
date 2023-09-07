@@ -24,7 +24,7 @@ function Register() {
 
   function register() {
     try {
-      axios.post("/register", {
+      axios.post("http://localhost:3001/register", {
         userSignUpInfo: newUser,
       });
     } catch (err: any) {

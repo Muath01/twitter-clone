@@ -29,13 +29,13 @@ function PostCreation({
 
   async function createComment() {
     try {
-      await axios.post("/comment", {
+      await axios.post("http://localhost:3001/comments", {
         content: postContent,
         username: user.username,
         post: post,
       });
 
-      const response = await axios.get("/comment", {
+      const response = await axios.get("http://localhost:3001/comments", {
         params: {
           postId: post._id,
         },
@@ -50,12 +50,12 @@ function PostCreation({
   async function createPost() {
     setPostModal(false);
     try {
-      const postReq = await axios.post("/post", {
+      const postReq = await axios.post("http://localhost:3001/posts", {
         content: postContent,
         username: user.username,
       });
 
-      const response = await axios.get("/posts", {
+      const response = await axios.get("http://localhost:3001/posts", {
         params: {
           user: "abc",
         },

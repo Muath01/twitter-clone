@@ -58,7 +58,7 @@ function Auth() {
     e.preventDefault();
 
     try {
-      const response = await axios.get("/auth", {
+      const response = await axios.get("http://localhost:3001/auth", {
         params: {
           loginInfo: loginInfo,
         },
@@ -84,7 +84,7 @@ function Auth() {
         navigate("/");
       }
     } catch (error: any) {
-      console.log(error.message);
+      console.log("error: ", error.message);
     }
   }
   return (
