@@ -31,8 +31,9 @@ console.log("location: ", location);
 
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
-app.get("*", (req, res) => {
-  res.redirect("/");
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/build", "index.html"));
+
   // res.sendFile(path.join(__dirname, "client/build", "index.html"));
 });
 
