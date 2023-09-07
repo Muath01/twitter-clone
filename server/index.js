@@ -5,6 +5,8 @@ import { ObjectId } from "mongodb";
 import { CommentModel, PostModel } from "./models/Post.js";
 import bodyParser from "body-parser";
 import { UserModel } from "./models/Users.js";
+import { dirname } from "path";
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -31,7 +33,7 @@ mongoose.connect(
 //   });
 
 app.get("/", async (req, res) => {
-  res.redirect("../client/src/app.tsx"); // Redirects to another URL, e.g., "/newpage"
+  app.use(express.static(path.join(__dirname, "client/build")));
 });
 
 app.post("/register", async (req, res) => {
