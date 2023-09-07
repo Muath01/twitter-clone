@@ -32,7 +32,7 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
   }
   async function getComments() {
     try {
-      const response = await axios.get("http://localhost:3001/comments", {
+      const response = await axios.get("/comments", {
         params: {
           postId: post?._id,
         },

@@ -42,7 +42,7 @@ function HomePage({ middleComponent }: any) {
 
   async function getPosts() {
     try {
-      const response = await axios.get("http://localhost:3001/posts", {
+      const response = await axios.get("/posts", {
         params: {
           user: "abc",
         },

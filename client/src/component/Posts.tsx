@@ -34,7 +34,7 @@ function Posts({
     }
 
     try {
-      const response = await axios.post("http://localhost:3001/like", {
+      const response = await axios.post("/like", {
         id: post._id,
         username: user.username, //user likes and username
       });
