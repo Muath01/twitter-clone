@@ -74,6 +74,8 @@ function HomePage({ middleComponent }: any) {
   }
   const handleSectionClick = () => {};
 
+  console.log("homePage");
+
   const componentName = middleComponent.type.name;
   const colSpan = componentName === "PostsSections" ? 4 : 7;
   console.log("componentName: ", componentName);
@@ -90,7 +92,9 @@ function HomePage({ middleComponent }: any) {
         <div
           className={`
           sm:col-span-7
-          md:col-span-${componentName == "PostsSections" ? 4 : 7}
+          ${
+            componentName == "PostsSections" ? "md:col-span-4" : "md:col-span-7"
+          }
            row-span-8 order-1 border dark:border-gray-300 border-gray-600  sm:order-2 h-full relative w-full flex overflow-y-scroll`}
         >
           {/* <PostsSections user={user} postsRedux={postsRedux} /> */}

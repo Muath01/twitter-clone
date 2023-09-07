@@ -33,15 +33,11 @@ function BrowseSection({ user }: BrowseSectionProps) {
     <div className=" border-b dark:border-gray-300 border-gray-600 h-[7rem] relative flex justify-center gap-10 dark:bg-white ">
       <div className=" flex z-20 ">
         <div className="text-white bg-white dark:bg-gray-300 rounded-[100%] h-[40px] w-[40px] absolute left-3 top-4 flex border-2 ">
-          <i className="fa-regular  fa-user text-black dark:text-white text-[24px] relative top-[15%] left-2 text-center flex justify-center  ">
-            <i
-              className="border-2 bg-red-600 rounded-[100%] h-[40px] w-[40px] absolute left-3 top-4 "
-              onClick={openSetting}
-            >
-              D
-            </i>
-          </i>
-          <p className=" ml-5 mt-2 ">{user.username}</p>
+          <i
+            onClick={openSetting}
+            className="fa-regular  fa-user text-black dark:text-white text-[24px] relative top-[15%] left-2 text-center flex justify-center select-none cursor-pointer "
+          ></i>
+          <p className=" ml-5 mt-2  select-none">{user.username}</p>
         </div>
       </div>
       <div className="">
@@ -81,7 +77,7 @@ function BrowseSection({ user }: BrowseSectionProps) {
         </p>
       </div>
       {settingsModal && (
-        <div className="border-4 w-full overflow-scroll h-[350%] bg-slate-800 z-10 flex   absolute text-white">
+        <div className="border-4 w-full overflow-scroll h-[350%] bg-slate-800 z-10 flex sm:hidden   absolute text-white dark:bg-white ">
           <div className=" z-0 flex relative top-20 ">
             <Settings />
           </div>

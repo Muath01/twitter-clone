@@ -1,5 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+if (!localStorage.getItem("loggedUser")) {
+  let whoLogged = {
+    isLogged: false,
+    user: "none",
+    id: "none",
+  };
+  let whoLoggedObjectString = JSON.stringify(whoLogged);
+  localStorage.setItem("loggedUser", whoLoggedObjectString);
+} else {
+  console.log("there is a logged user");
+}
+
 const isLoggedIn = localStorage.getItem("loggedUser");
 const parsed = JSON.parse(isLoggedIn!) as {
   isLogged: boolean;

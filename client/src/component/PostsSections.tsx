@@ -50,15 +50,12 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
 
       setPost(post);
 
+      console.log("target2: ", target);
       console.log("target: ", target.tagName);
 
       if (
         outerPostRef.current?.contains(event.target as Node) &&
-        target.tagName != "TEXTAREA" &&
-        target.tagName != "BUTTON" &&
-        /* the text area for post creation is isnide the outerPostRef, this check helps prevent opening up a post if user tries to make a new post
-         */ target.tagName != "I" &&
-        target.id != "one"
+        target.id == "post"
       ) {
         setPostExpanded(true);
         getComments();
@@ -72,6 +69,8 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
       document.removeEventListener("click", listenForClick);
     };
   });
+
+  console.log("post creationxx");
 
   return (
     <>
@@ -91,9 +90,9 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
               <Posts
                 key={key}
                 post={post}
+                setPost={setPost}
                 setPostExpanded={setPostExpanded}
                 postExpanded={postExpanded}
-                setPost={setPost}
               />
             ))}
         </div>
@@ -107,11 +106,10 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
           {/* The profile header and the for you & following tbas */}
           {
             <Posts
-              // key={key}
               post={post}
+              setPost={setPost}
               postExpanded={postExpanded}
               setPostExpanded={setPostExpanded}
-              setPost={setPost}
             />
           }
           <div className="h-40 w-full ">

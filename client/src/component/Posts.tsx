@@ -11,23 +11,22 @@ function Posts({
   setPostExpanded,
   setPost,
   postExpanded,
+  postArr,
 }: {
   post?: any;
   comment?: any;
   setPostExpanded?: (value: boolean | ((prevVar: boolean) => boolean)) => void;
   setPost: any;
   postExpanded: boolean;
+  postArr?: any;
 }) {
   const user = useSelector((state: RootState) => state.setSigned);
-  const poster = useSelector((state: RootState) => state.postsRedux);
   const navigate = useNavigate();
-  const [hello, setHello] = useState("");
   const dispatch = useDispatch();
-
-  // console.log("Post and comment: ", post);
 
   //Like functionality
   async function likePost(e: any) {
+    console.log("Liekd POst:");
     if (!user.signed) {
       // if user attempts to like whilst not logged in, direct them to the login section
       navigate("/auth");
@@ -56,18 +55,23 @@ function Posts({
     <div
       onClick={(e) => {
         setPost(post);
+        console.log("postArrcc: ", postArr);
         if (!setPostExpanded) return;
         console.log("omgg");
       }}
-      className="border-b bg-[#15202B]  dark:bg-white dark:text-black hover:bg-[#162431] dark:border-gray-300 border-gray-600 min-h-[15%] w-full h-auto  relative cursor-pointer flex flex-col gap-2 items-center justify-end pt-8 pb-[1.5rem] "
+      id="post"
+      className=" border-b  bg-[#15202B]  dark:bg-white dark:text-black hover:bg-[#162431] dark:border-gray-300 border-gray-600  min-h-[15%] w-full h-auto  relative cursor-pointer flex flex-col gap-2 items-center justify-end pt-8 pb-[1.5rem] "
     >
       <div className=" absolute left-2 top-2 flex gap-2     text-white h-auto w-1/2">
         <div className="w-[40px] h-[40px] rounded-[100%] bg-white dark:bg-gray-300 relative flex item-center justify-center">
           <i className="fa-regular fa-user text-black dark:text-white text-[28px] relative top-[15%] "></i>
         </div>
-        <p>{post.username}</p>
+        <p className="dark:text-black">{post.username}</p>
       </div>
-      <div className="text-left w-4/5 h-auto justify-self-end left-5 relative">
+      <div
+        id="post"
+        className="text-left w-4/5 h-auto justify-self-end left-5 relative text-gray-600"
+      >
         {post.content}
       </div>
       {postExpanded && (
@@ -77,13 +81,13 @@ function Posts({
       )}
       {
         <div
+          id="post"
           className={` ${
             postExpanded && "border-b"
           }  flex  w-4/5 relative  justify-end left-5 items-center gap-10 text-[20px] text-gray-400 flex-row-reverse `}
         >
           <i
             onClick={(e) => {
-              setHello("he");
               likePost(e);
             }}
             className={`fa-regular fa-heart flex  items-start relative justify-center cursor-pointer hover:text-red-600  ${
