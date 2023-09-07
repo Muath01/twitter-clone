@@ -27,24 +27,24 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const location = path.dirname(path.join(__dirname, "../client/dist"));
 
-console.log("location: ", location);
+// console.log("location: ", location);
 
-app.use(express.static(path.join(__dirname, "../client/dist")));
+// app.use(express.static(path.join(__dirname, "../client/dist")));
 
-app.get("*", (req, res) => {
-  res.redirect("/");
-  // res.sendFile(path.join(__dirname, "client/build", "index.html"));
-});
-
-// // Define a catch-all route
-// app.get(["/contact", "/chart", "/test", "/payment"], (req, res) => {
-//   res.sendFile(path.join(__dirname, "client/build", "index.html"));
+// app.get("*", (req, res) => {
+//   res.redirect("/");
+//   // res.sendFile(path.join(__dirname, "client/build", "index.html"));
 // });
-app.use("/comments", commentsRoute);
-app.use("/posts", postsRoute);
-app.use("/auth", authRoute);
-app.use("/register", registerRoute);
-app.use("/like", likeRoute);
+
+// // // Define a catch-all route
+// // app.get(["/contact", "/chart", "/test", "/payment"], (req, res) => {
+// //   res.sendFile(path.join(__dirname, "client/build", "index.html"));
+// // });
+// app.use("/comments", commentsRoute);
+// app.use("/posts", postsRoute);
+// app.use("/auth", authRoute);
+// app.use("/register", registerRoute);
+// app.use("/like", likeRoute);
 
 // Assuming you have the user ID and post ID available
 
