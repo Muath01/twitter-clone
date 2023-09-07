@@ -29,6 +29,11 @@ mongoose.connect(
 //   .catch((err) => {
 //     console.log("error", err);
 //   });
+
+app.get("/", async (req, res) => {
+  res.redirect("../client/src/app.tsx"); // Redirects to another URL, e.g., "/newpage"
+});
+
 app.post("/register", async (req, res) => {
   // console.log("here: ", req.body);
   const { username, email, password } = req.body.userSignUpInfo;
