@@ -29,13 +29,13 @@ function PostCreation({
 
   async function createComment() {
     try {
-      await axios.post("http://localhost:3001/comment", {
+      await axios.post("/comment", {
         content: postContent,
         username: user.username,
         post: post,
       });
 
-      const response = await axios.get("http://localhost:3001/comment", {
+      const response = await axios.get("/comment", {
         params: {
           postId: post._id,
         },
@@ -50,12 +50,12 @@ function PostCreation({
   async function createPost() {
     setPostModal(false);
     try {
-      const postReq = await axios.post("http://localhost:3001/post", {
+      const postReq = await axios.post("/post", {
         content: postContent,
         username: user.username,
       });
 
-      const response = await axios.get("http://localhost:3001/posts", {
+      const response = await axios.get("/posts", {
         params: {
           user: "abc",
         },
@@ -116,3 +116,26 @@ function PostCreation({
 }
 
 export default PostCreation;
+
+// PostsSections.tsx?t=1694048079241:68 post creationxx
+// PostsSections.tsx?t=1694048079241:54 target2:  <i class=​"fa-regular fa-heart flex  items-start relative justify-center cursor-pointer hover:​text-red-600  ">​…​</i>​
+// PostsSections.tsx?t=1694048079241:55 target:  I
+// postsReducer.tsx?t=1694048079241:9 PostsRedux:  {_id: '64f28ca9c403132b20d59b00', username: 'hello', content: 'cc', likes: 1, likedBy: Array(1), …}
+// postsReducer.tsx?t=1694048079241:14 not arr
+// HomePage.tsx?t=1694048106898:73 homePage
+// HomePage.tsx?t=1694048106898:76 componentName:  PostsSections
+// Menu.tsx?t=1694048079241:68 postModa:  false
+// PostsSections.tsx?t=1694048079241:68 post creationxx
+
+///
+
+// PostsSections.tsx?t=1694048079241:68 post creationxx
+// PostsSections.tsx?t=1694048079241:54 target2:  <i class=​"fa-regular fa-heart flex  items-start relative justify-center cursor-pointer hover:​text-red-600  ">​…​</i>​
+// PostsSections.tsx?t=1694048079241:55 target:  I
+// PostsSections.tsx?t=1694048079241:68 post creationxx
+// postsReducer.tsx?t=1694048079241:9 PostsRedux:  {_id: '64f28c87c403132b20d59afa', username: 'hello', content: 'f', likes: 1, likedBy: Array(1), …}
+// postsReducer.tsx?t=1694048079241:14 not arr
+// HomePage.tsx?t=1694048106898:73 homePage
+// HomePage.tsx?t=1694048106898:76 componentName:  PostsSections
+// Menu.tsx?t=1694048079241:68 postModa:  false
+// PostsSections.tsx?t=1694048079241:68 post creationxx
