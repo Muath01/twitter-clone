@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   const { email, password } = req.query.loginInfo;
+  console.log("ON Auth");
 
   try {
     const user = await UserModel.find({ email: email });

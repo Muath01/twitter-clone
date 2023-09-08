@@ -4,6 +4,7 @@ import { PostModel } from "../models/Post.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
+  console.log("ON post ");
   try {
     const posts = await PostModel.find();
 
@@ -17,6 +18,8 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
+  console.log("ON post ");
+
   try {
     const createPost = await PostModel({
       username: req.body.username,

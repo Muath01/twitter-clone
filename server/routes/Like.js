@@ -5,6 +5,8 @@ import { UserModel } from "../models/Users.js";
 const router = express.Router();
 
 router.post("/", async (req, res) => {
+  console.log("ON likes ");
+
   const { id: postId, username } = req.body;
   let post = await PostModel.findById(postId).exec();
   const userId = await UserModel.findOne({ username }, "_id").exec();

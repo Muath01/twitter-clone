@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   const { postId } = req.query;
+  console.log("ON comments");
+
   try {
     const post = await PostModel.findOne({ _id: postId });
 
