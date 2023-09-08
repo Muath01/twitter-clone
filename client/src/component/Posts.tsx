@@ -34,10 +34,13 @@ function Posts({
     }
 
     try {
-      const response = await axios.post("/like", {
-        id: post._id,
-        username: user.username, //user likes and username
-      });
+      const response = await axios.post(
+        "https://twitter-clone-nm98.onrender.com/like",
+        {
+          id: post._id,
+          username: user.username, //user likes and username
+        }
+      );
 
       dispatch(setPosts(response.data.post));
     } catch (err: any) {

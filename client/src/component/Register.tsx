@@ -24,7 +24,7 @@ function Register() {
 
   function register() {
     try {
-      axios.post("/register", {
+      axios.post("https://twitter-clone-nm98.onrender.com/register", {
         userSignUpInfo: newUser,
       });
     } catch (err: any) {
