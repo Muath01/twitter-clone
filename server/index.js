@@ -30,12 +30,12 @@ const location = path.dirname(path.join(__dirname, "../client/dist"));
 console.log("location: ", location);
 
 // Serve static files from the 'client/dist' directory
-app.use(express.static(path.join(__dirname, "../client/dist")));
+// app.use(express.static(path.join(__dirname, "../client/dist")));
 
-// Handle the root route and serve 'index.html'
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-});
+// // Handle the root route and serve 'index.html'
+// app.get("/", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+// });
 
 // // Define a catch-all route
 // app.get(["/contact", "/chart", "/test", "/payment"], (req, res) => {
