@@ -42,14 +42,11 @@ function HomePage({ middleComponent }: any) {
 
   async function getPosts() {
     try {
-      const response = await axios.get(
-        "https://twitter-clone-nm98.onrender.com/posts",
-        {
-          params: {
-            user: "abc",
-          },
-        }
-      );
+      const response = await axios.get("/posts", {
+        params: {
+          user: "abc",
+        },
+      });
 
       dispatch(setPosts(response.data));
 

@@ -32,14 +32,11 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
   }
   async function getComments() {
     try {
-      const response = await axios.get(
-        "https://twitter-clone-nm98.onrender.com/comments",
-        {
-          params: {
-            postId: post?._id,
-          },
-        }
-      );
+      const response = await axios.get("/comments", {
+        params: {
+          postId: post?._id,
+        },
+      });
 
       dispatch(setComments(response.data));
     } catch (error: any) {

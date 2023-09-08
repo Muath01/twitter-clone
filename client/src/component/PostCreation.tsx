@@ -29,20 +29,17 @@ function PostCreation({
 
   async function createComment() {
     try {
-      await axios.post("https://twitter-clone-nm98.onrender.com/comments", {
+      await axios.post("/comments", {
         content: postContent,
         username: user.username,
         post: post,
       });
 
-      const response = await axios.get(
-        "https://twitter-clone-nm98.onrender.com/comments",
-        {
-          params: {
-            postId: post._id,
-          },
-        }
-      );
+      const response = await axios.get("/comments", {
+        params: {
+          postId: post._id,
+        },
+      });
 
       dispatch(setComments(response.data));
     } catch (error: any) {
@@ -53,22 +50,16 @@ function PostCreation({
   async function createPost() {
     setPostModal(false);
     try {
-      const postReq = await axios.post(
-        "https://twitter-clone-nm98.onrender.com/posts",
-        {
-          content: postContent,
-          username: user.username,
-        }
-      );
+      const postReq = await axios.post("/posts", {
+        content: postContent,
+        username: user.username,
+      });
 
-      const response = await axios.get(
-        "https://twitter-clone-nm98.onrender.com/posts",
-        {
-          params: {
-            user: "abc",
-          },
-        }
-      );
+      const response = await axios.get("/posts", {
+        params: {
+          user: "abc",
+        },
+      });
 
       await dispatch(setPosts(response.data));
     } catch (error: any) {

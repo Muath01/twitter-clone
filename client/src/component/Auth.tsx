@@ -58,14 +58,11 @@ function Auth() {
     e.preventDefault();
 
     try {
-      const response = await axios.get(
-        "https://twitter-clone-nm98.onrender.com/auth",
-        {
-          params: {
-            loginInfo: loginInfo,
-          },
-        }
-      );
+      const response = await axios.get("/auth", {
+        params: {
+          loginInfo: loginInfo,
+        },
+      });
 
       if (!response.data.success) {
         dispatch(setSigned(response.data.success));
