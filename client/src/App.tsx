@@ -40,6 +40,7 @@ function App() {
               middleComponent={
                 <PostsSections user={user} postsRedux={postsRedux} />
               }
+              middleComponentName={"PostSections"}
             />
           }
         />
@@ -47,31 +48,66 @@ function App() {
         <Route path="/auth" element={<Auth />} />
         <Route
           path="/settings"
-          element={<HomePage middleComponent={<Settings />} />}
+          element={
+            <HomePage
+              middleComponent={<Settings />}
+              middleComponentName={"Settings"}
+            />
+          }
         />
         <Route
           path="/notifications"
-          element={<HomePage middleComponent={<Notifications />} />}
+          element={
+            <HomePage
+              middleComponent={<Notifications />}
+              middleComponentName={"notifications"}
+            />
+          }
         />
         <Route
           path="/messages"
-          element={<HomePage middleComponent={<Messages />} />}
+          element={
+            <HomePage
+              middleComponent={<Messages />}
+              middleComponentName={"messages"}
+            />
+          }
         />
         <Route
           path="/lists"
-          element={<HomePage middleComponent={<Lists />} />}
+          element={
+            <HomePage
+              middleComponent={<Lists />}
+              middleComponentName={"lists"}
+            />
+          }
         />
         <Route
           path="/bookmarks"
-          element={<HomePage middleComponent={<BookMarks />} />}
+          element={
+            <HomePage
+              middleComponent={<BookMarks />}
+              middleComponentName={"bookmarks"}
+            />
+          }
         />
         <Route
           path="/Communities"
-          element={<HomePage middleComponent={<Communities />} />}
+          element={
+            <HomePage
+              middleComponent={<Communities />}
+              middleComponentName={"communities"}
+            />
+          }
         />
         <Route
           path="/profile"
-          element={<HomePage middleComponent={<Profile />} />}
+          element={
+            <HomePage
+              middleComponent={<Profile />}
+              middleComponentName={"profile"}
+            />
+          }
         />
       </Routes>
     </div>

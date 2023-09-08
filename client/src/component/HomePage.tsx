@@ -18,7 +18,7 @@ import BrowseSection from "./BrowseSection";
 import SignInBottomBar from "./SignInBottomBar";
 import PostsSections from "./PostsSections";
 
-function HomePage({ middleComponent }: any) {
+function HomePage({ middleComponent, middleComponentName }: any) {
   const [postModal, setPostModal] = useState(false);
   const [postsX, setPostsX] = useState<any>([]);
   const [load, setLoad] = useState(true);
