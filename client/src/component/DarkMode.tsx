@@ -15,7 +15,6 @@ function DarkMode() {
     }
   }
 
-  console.log("DARK mode: ", darkMode);
   return (
     <div className="flex flex-col justify-end  h-full gap-4 relative w-full">
       <h1 className="text-left text-[30px]">Background</h1>

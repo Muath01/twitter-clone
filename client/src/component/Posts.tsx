@@ -26,7 +26,6 @@ function Posts({
 
   //Like functionality
   async function likePost(e: any) {
-    console.log("Liekd POst:");
     if (!user.signed) {
       // if user attempts to like whilst not logged in, direct them to the login section
       navigate("/auth");
@@ -58,9 +57,7 @@ function Posts({
     <div
       onClick={(e) => {
         setPost(post);
-        console.log("postArrcc: ", postArr);
         if (!setPostExpanded) return;
-        console.log("omgg");
       }}
       id="post"
       className=" border-b  bg-[#15202B]  dark:bg-white dark:text-black hover:bg-[#162431] dark:border-gray-300 border-gray-600  min-h-[15%] w-full h-auto  relative cursor-pointer flex flex-col gap-2 items-center justify-end pt-8 pb-[1.5rem] "

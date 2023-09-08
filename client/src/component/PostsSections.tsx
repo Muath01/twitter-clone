@@ -53,9 +53,6 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
 
       setPost(post);
 
-      console.log("target2: ", target);
-      console.log("target: ", target.tagName);
-
       if (
         outerPostRef.current?.contains(event.target as Node) &&
         target.id == "post"
@@ -72,8 +69,6 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
       document.removeEventListener("click", listenForClick);
     };
   });
-
-  console.log("post creationxx");
 
   return (
     <>

@@ -60,7 +60,6 @@ function HomePage({ middleComponent }: any) {
   }
 
   useEffect(() => {
-    console.log("HomePage");
     getPosts();
   }, []);
 
@@ -77,11 +76,9 @@ function HomePage({ middleComponent }: any) {
   }
   const handleSectionClick = () => {};
 
-  console.log("homePage");
-
   const componentName = middleComponent.type.name;
-  const colSpan = componentName === "PostsSections" ? 4 : 7;
-  console.log("componentName: ", componentName);
+  console.log("componentNamex: ", componentName);
+  console.log("midCompx: ", middleComponent);
 
   return (
     <div className=" grid sm:grid-cols-9 sm:grid-rows-1 grid-rows-9 h-full w-full  bg-[#15202B] dark:bg-white relative   ">

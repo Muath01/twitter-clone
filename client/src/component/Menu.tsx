@@ -40,11 +40,9 @@ function Menu() {
       class: "sm:flex hidden",
     },
   ];
-  console.log("postModa: ", postModal);
 
   function makeAPost() {
     if (user.signed) {
-      console.log("postModal: ", postModal);
       setPostModal(!postModal);
       // setPostModal(!postModal);
       // setPostClicked(!postClicked);
