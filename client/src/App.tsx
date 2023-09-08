@@ -40,7 +40,7 @@ function App() {
               middleComponent={
                 <PostsSections user={user} postsRedux={postsRedux} />
               }
-              middleComponentName={"PostSections"}
+              middleComponentName={"PostsSections"}
             />
           }
         />

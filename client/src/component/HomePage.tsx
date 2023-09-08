@@ -93,7 +93,9 @@ function HomePage({ middleComponent, middleComponentName }: any) {
           className={`
           sm:col-span-7
           ${
-            componentName == "PostsSections" ? "md:col-span-4" : "md:col-span-7"
+            middleComponentName == "PostsSections"
+              ? "md:col-span-4"
+              : "md:col-span-7"
           }
            row-span-8 order-1 border dark:border-gray-300 border-gray-600  sm:order-2 h-full relative w-full flex overflow-y-scroll`}
         >
@@ -103,7 +105,7 @@ function HomePage({ middleComponent, middleComponentName }: any) {
         </div>
 
         {/* Right side */}
-        {componentName == "PostsSections" ? (
+        {middleComponentName == "PostsSections" ? (
           <div
             onClick={handleSectionClick}
             className="sm:col-span-1 bg-[#15202B] md:col-span-2 xl:col-span-3  md:block order-3 hidden relative w-full "
