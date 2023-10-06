@@ -9,6 +9,10 @@ import { RootState } from "../Redux/store";
 import { setComments } from "../Redux/commentsReducer";
 import axios from "axios";
 
+//@ts-ignore
+import LoadingScreen from "react-loading-screen";
+import { ClipLoader } from "react-spinners";
+
 type BrowseSectionProps = {
   user: signedState;
   postsRedux: PostType[];
@@ -30,6 +34,7 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
     // setPostExpanded(true);
     // console.log("POST: ", post);
   }
+
   async function getComments() {
     try {
       const response = await axios.get(
@@ -70,9 +75,19 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
     };
   });
 
+  const [fetched, setFetched] = useState(postsRedux.length > 0);
+
   return (
     <>
-      {!postExpanded ? (
+      {!fetched ? (
+        <div className="w-full   ">
+          <BrowseSection user={user} />
+          {user.signed ? <PostCreation /> : ""}
+          <div className="h-1/2  flex items-center justify-center">
+            <ClipLoader loading={true} color="rgba(0, 115, 255, 1)" />
+          </div>
+        </div>
+      ) : !postExpanded ? (
         <div
           id="one"
           ref={outerPostRef}
@@ -112,8 +127,8 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
           }
           <div className="h-40 w-full ">
             {/* <button className="absolute right-5 bottom-5 px-4 py-2 rounded-full bg-[#359BF0] text-white">
-                Post
-              </button> */}
+              Post
+            </button> */}
 
             {/* This function will send a post request to comment path and add content of text area to comment arr */}
             <PostCreation commentSection={true} post={post} />
