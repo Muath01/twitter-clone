@@ -76,8 +76,12 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
   });
 
   useEffect(() => {
-    const [fetched, setFetched] = useState(postsRedux.length > 0);
+    setFetched(postsRedux.length > 0);
+    console.log("USE-EFFECT-FETCH: ", fetched);
   }, [postsRedux]);
+
+  const [fetched, setFetched] = useState(postsRedux.length > 0);
+  console.log("FIRST_Fetch: ", fetched);
 
   return (
     <>
