@@ -75,7 +75,9 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
     };
   });
 
-  const [fetched, setFetched] = useState(postsRedux.length > 0);
+  useEffect(() => {
+    const [fetched, setFetched] = useState(postsRedux.length > 0);
+  }, [postsRedux]);
 
   return (
     <>
