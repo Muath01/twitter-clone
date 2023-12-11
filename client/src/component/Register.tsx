@@ -28,6 +28,8 @@ function Register() {
       axios.post("https://twitter-clone-nm98.onrender.com/register", {
         userSignUpInfo: newUser,
       });
+
+      navigate("/auth");
     } catch (err: any) {
       console.log(err.message);
     }
