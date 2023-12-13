@@ -80,7 +80,7 @@ function PostCreation({
 
   return (
     <>
-      <div className="h-[10rem] bg-[#15202B] dark:bg-white block  relative border-b  ">
+      <div className="h-[10rem] bg-[#15202B]  dark:bg-white block  relative border-b  ">
         {/* <input
           type="text"
           className="bg-[#15202B] border-none bg-none absolute left-[20%] top-2 w-full focus:outline-none text-white"
@@ -94,7 +94,7 @@ function PostCreation({
           id=""
           placeholder="What is hapenning?!"
           cols={0}
-          className="bg-[#15202B] dark:bg-white dark:text-black border-none bg-none absolute left-[20%]  w-[80%] outline-none resize-none focus:outline-none text-white"
+          className="bg-[#15202B] dark:bg-white  dark:text-black border-none bg-none absolute left-[20%]  w-[80%] outline-none resize-none focus:outline-none text-white"
           rows={4}
         >
           {"hello"}

@@ -144,8 +144,8 @@ function Menu() {
         </div>
       </div>
       {postModal && (
-        <div className="fixed flex justify-center items-center   border-white w-full h-full left-[0rem]   bottom-0  bg-black place-items-center bg-opacity-50 ">
-          <div className="relative sm:w-1/2 sm:h-1/2 w-4/5 h-2/5  rounded-xl">
+        <div className="fixed flex justify-center items-center bg  border-white w-full h-full left-[0rem]   bottom-0  bg-black place-items-center bg-opacity-50   ">
+          <div className="relative sm:w-1/2 sm:h-1/2 w-4/5 h-2/5 rounded-xl bg-black">
             <PostCreation />
           </div>
         </div>
