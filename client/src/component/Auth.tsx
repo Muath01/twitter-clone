@@ -76,7 +76,7 @@ function Auth() {
     }
   }
   return (
-    <div className="bg-[#15202B] w-full  h-[100%] flex justify-center items-center  ">
+    <div className="bg-[#15202B] w-full  h-[100%] flex justify-center items-center bg-opacity-30 ">
       <div className="flex items-center justify-center h-5/6 w-1/2 shadow-2xl bg-[#15202B] backdrop-blur-0 ">
         <div className=" h-3/4 flex flex-col w-full sm:w-5/6 md:w-4/5 lg:w-3/4 xl:w-1/2 items-start px-9 py-10  gap-2 mt-10">
           <i className="fa-brands fa-twitter text-white text-[32px] mt-2 absolute top-0 left-1/2 translate-x-[-50%] "></i>
