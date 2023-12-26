@@ -12,7 +12,8 @@ import axios from "axios";
 //@ts-ignore
 import LoadingScreen from "react-loading-screen";
 import { ClipLoader } from "react-spinners";
-
+import { useAuth } from "../Contexts/AuthContext";
+import { apiUrl } from "../utilities/path";
 type BrowseSectionProps = {
   user: signedState;
   postsRedux: PostType[];
@@ -22,6 +23,8 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
   const [postExpanded, setPostExpanded] = useState<boolean>(false);
   const [post, setPost] = useState<PostType>();
 
+  const { currentUser }: any = useAuth();
+
   const outerPostRef = useRef<HTMLDivElement>(null);
   const innerPostRef = useRef<HTMLDivElement>(null);
 
@@ -30,21 +33,13 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
   const comments = useSelector((state: RootState) => state.commentsRedux);
   const dispatch = useDispatch();
 
-  function clickPost(action: any) {
-    // setPostExpanded(true);
-    // console.log("POST: ", post);
-  }
-
   async function getComments() {
     try {
-      const response = await axios.get(
-        "https://twitter-clone-nm98.onrender.com/comments",
-        {
-          params: {
-            postId: post?._id,
-          },
-        }
-      );
+      const response = await axios.get(`${apiUrl}/comments`, {
+        params: {
+          postId: post?._id,
+        },
+      });
 
       dispatch(setComments(response.data));
     } catch (error: any) {
@@ -76,87 +71,81 @@ function PostsSections({ user, postsRedux }: BrowseSectionProps) {
   });
 
   useEffect(() => {
-    setFetched(postsRedux.length > 0);
-    console.log("USE-EFFECT-FETCH: ", fetched);
+    setFetched(postsRedux.length >= 0);
   }, [postsRedux]);
 
   const [fetched, setFetched] = useState(postsRedux.length > 0);
-  console.log("FIRST_Fetch: ", fetched);
 
   return (
     <>
-      {!fetched ? (
-        <div className="w-full   ">
-          <BrowseSection user={user} />
-          {user.signed ? <PostCreation /> : ""}
-          <div className="h-1/2  flex items-center justify-center">
-            <ClipLoader loading={true} color="rgba(0, 115, 255, 1)" />
+      <div className="w-full">
+        <BrowseSection />
+        {!fetched ? (
+          <div className="w-full   ">
+            {currentUser ? <PostCreation /> : ""}
+            <div className="h-1/2  flex items-center justify-center">
+              <ClipLoader loading={true} color="rgba(0, 115, 255, 1)" />
+            </div>
           </div>
-        </div>
-      ) : !postExpanded ? (
-        <div
-          id="one"
-          ref={outerPostRef}
-          className="bg-[#15202B] min-h-full h-auto  w-full absolute pb-12"
-        >
-          <BrowseSection user={user} />
-          {/* The profile header and the for you & following tbas */}
-          {user.signed ? <PostCreation /> : ""}
-          {postsRedux
-            .slice(0)
-            .reverse()
-            .map((post: any, key: any) => (
-              <Posts
-                key={key}
-                post={post}
-                setPost={setPost}
-                setPostExpanded={setPostExpanded}
-                postExpanded={postExpanded}
-              />
-            ))}
-        </div>
-      ) : (
-        <div
-          id="here"
-          ref={innerPostRef}
-          className="bg-[#15202B] min-h-full h-auto  w-full absolute pb-12 "
-        >
-          <BrowseSection user={user} />
-          {/* The profile header and the for you & following tbas */}
-          {
-            <Posts
-              post={post}
-              setPost={setPost}
-              postExpanded={postExpanded}
-              setPostExpanded={setPostExpanded}
-            />
-          }
-          <div className="h-40 w-full ">
-            {/* <button className="absolute right-5 bottom-5 px-4 py-2 rounded-full bg-[#359BF0] text-white">
-              Post
-            </button> */}
-
-            {/* This function will send a post request to comment path and add content of text area to comment arr */}
-            <PostCreation commentSection={true} post={post} />
-          </div>
-
-          {/* This div will map all the comments made on the post, i.e. the comments found on the post array */}
-          <div className=" w-full flex flex-col">
-            {comments
+        ) : !postExpanded ? ( //comment section
+          <div
+            id="one"
+            ref={outerPostRef}
+            className="bg-[#15202B] min-h-full h-auto  w-full absolute pb-12"
+          >
+            {/* The profile header and the for you & following tbas */}
+            {currentUser ? <PostCreation /> : ""}
+            {postsRedux
               .slice(0)
               .reverse()
-              .map((comment: any, key: any) => (
+              .map((post: any, key: any) => (
                 <Posts
                   key={key}
-                  post={comment}
+                  post={post}
+                  setPost={setPost}
                   setPostExpanded={setPostExpanded}
                   postExpanded={postExpanded}
-                  setPost={setPost}
                 />
               ))}
           </div>
-        </div>
-      )}
+        ) : (
+          <div
+            id="here"
+            ref={innerPostRef}
+            className="bg-[#15202B] min-h-full h-auto  w-full absolute pb-12 "
+          >
+            {/* The profile header and the for you & following tbas */}
+            {
+              <Posts
+                post={post}
+                setPost={setPost}
+                postExpanded={postExpanded}
+                setPostExpanded={setPostExpanded}
+              />
+            }
+            <div className="h-40 w-full ">
+              {/* This function will send a post request to comment path and add content of text area to comment arr */}
+              <PostCreation commentSection={true} post={post} />
+            </div>
+
+            {/* This div will map all the comments made on the post, i.e. the comments found on the post array */}
+            <div className=" w-full flex flex-col">
+              {comments
+                .slice(0)
+                .reverse()
+                .map((comment: any, key: any) => (
+                  <Posts
+                    key={key}
+                    post={comment}
+                    setPostExpanded={setPostExpanded}
+                    postExpanded={postExpanded}
+                    setPost={setPost}
+                  />
+                ))}
+            </div>
+          </div>
+        )}
+      </div>
     </>
   );
 }

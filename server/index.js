@@ -1,18 +1,13 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import { ObjectId } from "mongodb";
-import { CommentModel, PostModel } from "./models/Post.js";
 import bodyParser from "body-parser";
-import { UserModel } from "./models/Users.js";
-import { dirname } from "path";
 import commentsRoute from "./routes/Comments.js";
 import postsRoute from "./routes/Posts.js";
-import authRoute from "./routes/Auth.js";
-import registerRoute from "./routes/Register.js";
 import likeRoute from "./routes/Like.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import { CommentModel, PostModel } from "./models/Post.js";
 
 const app = express();
 app.use(express.json());
@@ -29,27 +24,10 @@ const location = path.dirname(path.join(__dirname, "../client/dist"));
 
 console.log("location: ", location);
 
-// Serve static files from the 'client/dist' directory
-// app.use(express.static(path.join(__dirname, "../client/dist")));
-
-// // Handle the root route and serve 'index.html'
-// app.get("/", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-// });
-
-// // Define a catch-all route
-// app.get(["/contact", "/chart", "/test", "/payment"], (req, res) => {
-//   res.sendFile(path.join(__dirname, "client/build", "index.html"));
-// });
 app.use("/comments", commentsRoute);
 app.use("/posts", postsRoute);
-app.use("/auth", authRoute);
-app.use("/register", registerRoute);
+
 app.use("/like", likeRoute);
-
-// Assuming you have the user ID and post ID available
-
-// Find the post by ID
 
 app.listen(3001, () => console.log("server started...s"));
 

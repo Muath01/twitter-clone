@@ -1,27 +1,10 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../Redux/store";
-import { signedState } from "../Redux/signedReducer";
+import { useState } from "react";
 import Settings from "./Settings";
+import { useAuth } from "../Contexts/AuthContext";
 
-type BrowseSectionProps = {
-  user: signedState;
-};
-
-function BrowseSection({ user }: BrowseSectionProps) {
-  const [activeTab, setActiveTab] = useState<string | null>("for you");
-
-  //   const user = useSelector((state: RootState) => state.setSigned);
-
-  function handleEventClick(event?: any, action?: null | string) {
-    if (action == "for you" || action == "following") {
-      setActiveTab(action);
-    } else if (action === "shello") {
-      setActiveTab(null);
-    } else {
-      return;
-    }
-  }
+function BrowseSection() {
+  const [activeTab, setActiveTab] = useState<boolean>(true);
+  const { currentUser }: any = useAuth();
 
   const [settingsModal, setSettingsModal] = useState(true);
 
@@ -37,7 +20,10 @@ function BrowseSection({ user }: BrowseSectionProps) {
             onClick={openSetting}
             className="fa-regular  fa-user text-black dark:text-white text-[24px] relative top-[15%] left-2 text-center flex justify-center select-none cursor-pointer "
           ></i>
-          <p className=" ml-5 mt-2  select-none">{user.username}</p>
+          <p className=" ml-5 mt-2  select-none">
+            {" "}
+            {currentUser && currentUser.displayName}
+          </p>
         </div>
       </div>
       <div className="">
@@ -49,14 +35,10 @@ function BrowseSection({ user }: BrowseSectionProps) {
     
     `}
         onClick={(e) => {
-          handleEventClick(e, "for you");
+          setActiveTab(true);
         }}
       >
-        <p
-          className={`${
-            activeTab === "for you" ? "border-b-2 border-[#359AEE]" : ""
-          }  `}
-        >
+        <p className={`${activeTab ? "border-b-2 border-[#359AEE]" : ""}  `}>
           For you
         </p>
       </div>
@@ -65,14 +47,10 @@ function BrowseSection({ user }: BrowseSectionProps) {
    
     `}
         onClick={(e) => {
-          handleEventClick(e, "following");
+          setActiveTab(false);
         }}
       >
-        <p
-          className={`${
-            activeTab === "following" ? "border-b-2 border-[#359AEE]" : ""
-          } `}
-        >
+        <p className={`${!activeTab ? "border-b-2 border-[#359AEE]" : ""} `}>
           Following
         </p>
       </div>

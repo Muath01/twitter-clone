@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import { setPosts } from "../Redux/postsReducer";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../Contexts/AuthContext";
+import { apiUrl } from "../utilities/path";
 
 function Posts({
   post,
@@ -23,23 +25,22 @@ function Posts({
   const user = useSelector((state: RootState) => state.setSigned);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { currentUser }: any = useAuth();
 
+  console.log("myPostsss: ", post);
   //Like functionality
   async function likePost(e: any) {
-    if (!user.signed) {
+    if (!currentUser) {
       // if user attempts to like whilst not logged in, direct them to the login section
       navigate("/auth");
       return;
     }
 
     try {
-      const response = await axios.post(
-        "https://twitter-clone-nm98.onrender.com/like",
-        {
-          id: post._id,
-          username: user.username, //user likes and username
-        }
-      );
+      const response = await axios.post(`${apiUrl}/like`, {
+        id: post._id,
+        username: currentUser.displayName, //user likes and username
+      });
 
       dispatch(setPosts(response.data.post));
     } catch (err: any) {
@@ -48,11 +49,12 @@ function Posts({
   }
 
   // console.log("postContent: ", post);
-
   const liked =
     post &&
     post.likedBy &&
-    post.likedBy.some((item: any) => item._id === user._id);
+    Array.isArray(post.likedBy) &&
+    post.likedBy.some((item: any) => item && item._id === user._id);
+
   return (
     <div
       onClick={(e) => {

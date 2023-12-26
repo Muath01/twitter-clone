@@ -44,8 +44,9 @@ function Settings() {
           <h1 className="text-left text-white text-[28px] mb-3 dark:text-black ">
             Privacy
           </h1>
-          {menuItems.slice(0, 3).map((item) => (
+          {menuItems.slice(0, 3).map((item, index) => (
             <p
+              key={index}
               onClick={(e) => {
                 setSelectedMenu(item.section);
                 setDisplayedSetting(item.settings as string | JSX.Element);
@@ -79,8 +80,9 @@ function Settings() {
           <h1 className=" text-white dark:text-black text-[22px] text-left mb-10  ml-2 mt-2 ">
             General
           </h1>
-          {menuItems.slice(-2).map((item) => (
+          {menuItems.slice(-2).map((item, index) => (
             <p
+              key={index}
               onClick={(e) => {
                 setSelectedMenu(item.section);
                 setDisplayedSetting(item.settings as string | JSX.Element);

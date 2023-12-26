@@ -24,17 +24,11 @@ export const postReducer = createSlice({
     setPosts: (state, action) => {
       const post = action.payload;
 
-      console.log("PostsRedux: ", post);
       if (Array.isArray(post)) {
-        console.log("arr");
         return [...action.payload];
       } else {
-        console.log("not arr");
-
         const updatedState = current(state).map((item) => {
           if (item._id == post._id) {
-            // console.log("item:", item);
-            // console.log("post:", post);
             return {
               ...item,
               likes: post.likes,

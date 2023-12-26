@@ -12,7 +12,6 @@ export const displayReducer = createSlice({
   initialState,
   reducers: {
     setDisplay: (state, action) => {
-      console.log(action.payload);
       return {
         ...state,
         darkMode: action.payload,

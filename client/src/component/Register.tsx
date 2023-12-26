@@ -1,21 +1,27 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../Contexts/AuthContext";
 
+type NewUser = {
+  email: string;
+  username: string;
+  password: string;
+};
 function Register() {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLDivElement>(null);
   const inputRef2 = useRef<HTMLDivElement>(null);
   const inputRef3 = useRef<HTMLDivElement>(null);
 
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const { signup }: any = useAuth();
 
-  const [newUser, setNewUser] = useState({});
+  const [newUser, setNewUser] = useState<Partial<NewUser>>({});
 
   function setName(e: any) {
     const { name, value } = e.target;
+
+    console.log("username: ", newUser);
 
     setNewUser({
       ...newUser,
@@ -25,11 +31,12 @@ function Register() {
 
   function register() {
     try {
+      signup(newUser.email, newUser.password, newUser.username);
       axios.post("https://twitter-clone-nm98.onrender.com/register", {
         userSignUpInfo: newUser,
       });
 
-      navigate("/auth");
+      navigate("/");
     } catch (err: any) {
       console.log(err.message);
     }

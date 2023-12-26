@@ -1,19 +1,18 @@
-import React, { useContext, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setSigned } from "../Redux/signedReducer";
+import { useContext, useState } from "react";
+import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import { useNavigate } from "react-router-dom";
 import PostCreation from "./PostCreation";
 import { postMenuContext } from "../Contexts/postMenuContext";
+import { useAuth } from "../Contexts/AuthContext";
 
 function Menu() {
   const [showMenu, setShowMenu] = useState(false);
-  const [postClicked, setPostClicked] = useState(false);
+  const { currentUser, logout }: any = useAuth();
   const [selectedMenu, setSelectedMenu] = useState<string>("");
 
   const { postModal, setPostModal } = useContext(postMenuContext);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.setSigned);
 
@@ -42,12 +41,18 @@ function Menu() {
   ];
 
   function makeAPost() {
-    if (user.signed) {
+    if (currentUser) {
       setPostModal(!postModal);
-      // setPostModal(!postModal);
-      // setPostClicked(!postClicked);
     } else {
       navigate("/auth");
+    }
+  }
+
+  function handleLogout() {
+    try {
+      logout();
+    } catch (error) {
+      console.error("couldn't log out");
     }
   }
   return (
@@ -68,8 +73,9 @@ function Menu() {
             className="fa-brands fa-twitter text-white dark:text-black text-[24px] mt-1  "
           ></i>
         </div>
-        {menuItems.map((item) => (
-          <p
+        {menuItems.map((item, index) => (
+          <div
+            key={index}
             onClick={(e) => {
               setSelectedMenu(item.section);
               switch (item.section) {
@@ -104,7 +110,7 @@ function Menu() {
           >
             <i className={item.icon}></i>
             <p className="relative hidden xl:block ">{item.section}</p>
-          </p>
+          </div>
         ))}
 
         <div className="xl:flex  flex-col relative md:right-8 xl:right-0  ">
@@ -119,12 +125,7 @@ function Menu() {
           {showMenu ? (
             <div className="bg-[#15202B] dark:bg-white text-black cursor-pointer  border border-gray-600 rounded-e-xl relative bottom-2 h-40  ">
               <p
-                onClick={(e) => {
-                  let whoLogged = { isLogged: false, user: "" };
-                  let whoLoggedObjectString = JSON.stringify(whoLogged);
-                  localStorage.setItem("loggedUser", whoLoggedObjectString);
-                  location.reload();
-                }}
+                onClick={handleLogout}
                 className=" text-white dark:text-black dark:hover:bg-slate-200 absolute hover:bg-[#131e29] hover:rounded-lg bottom-1 w-full rounded-xl h-10 flex items-center justify-center cursor-pointer"
               >
                 Log out
@@ -138,13 +139,16 @@ function Menu() {
             className="w-full  bg-[#15202B] dark:hover:bg-slate-200 mb-1 dark:bg-white dark:text-black dark:border dark:border-gray-400 cursor-pointer hover:bg-[#131e29] rounded-3xl py-2 relative flex justify-start items-center "
           >
             <p className=" rounded-full bg-white p-6 dark:bg-black relative left-2 "></p>
-            <div className="relative left-3 top-1 ">{user.username}</div>
+            <div className="relative left-3 top-1 ">
+              {currentUser && currentUser.displayName}
+            </div>
             <i className="fa-solid fa-ellipsis absolute right-2 top-1/2 translate-y-[-20%] "></i>
           </div>
         </div>
       </div>
+
       {postModal && (
-        <div className="fixed flex justify-center items-center bg  border-white w-full h-full left-[0rem]   bottom-0  bg-black place-items-center bg-opacity-50   ">
+        <div className="fixed flex justify-center items-center bg  border-white w-full h-full left-[0rem]   bottom-0  bg-black place-items-center bg-opacity-70   ">
           <div className="relative sm:w-1/2 sm:h-1/2 w-4/5 h-2/5 rounded-xl bg-black">
             <PostCreation />
           </div>

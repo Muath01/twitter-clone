@@ -5,18 +5,16 @@ import { UserModel } from "../models/Users.js";
 const router = express.Router();
 
 router.post("/", async (req, res) => {
-  console.log("ON likes ");
-
   const { id: postId, username } = req.body;
   let post = await PostModel.findById(postId).exec();
+
+  console.log("id: ", username);
+
   const userId = await UserModel.findOne({ username }, "_id").exec();
 
-  // console.log("post: ", post);
   const isLiked =
     post &&
     post.likedBy.some((obj) => {
-      // console.log("objId: ", obj._id.toString()); //64e07024c7484dab961bb787
-      // console.log("userId: ", userId._id.toString()); // 64e07024c7484dab961bb787
       return obj._id.equals(userId._id);
     });
   // console.log("isliked: ", isLiked);
