@@ -27,7 +27,8 @@ function Posts({
   const dispatch = useDispatch();
   const { currentUser }: any = useAuth();
 
-  console.log("myPostsss: ", post);
+  console.log("API-URL: ", apiUrl);
+
   //Like functionality
   async function likePost(e: any) {
     if (!currentUser) {

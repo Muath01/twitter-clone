@@ -12,11 +12,8 @@ import SignInBottomBar from "./SignInBottomBar";
 import { useAuth } from "../Contexts/AuthContext";
 import { apiUrl } from "../utilities/path";
 import PostsSections from "./PostsSections";
-
 function HomePage({ middleComponent, middleComponentName }: any) {
   const [postModal, setPostModal] = useState(false);
-  const user = useSelector((state: RootState) => state.setSigned);
-  const postsRedux = useSelector((state: RootState) => state.postsRedux);
   const dispatch = useDispatch();
   const { currentUser }: any = useAuth();
 

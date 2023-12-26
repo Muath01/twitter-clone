@@ -23,8 +23,6 @@ function PostCreation({
 
   const dispatch = useDispatch();
 
-  console.log("post: ", post);
-
   async function createComment() {
     try {
       console.log("created a commment");
