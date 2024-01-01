@@ -25,6 +25,8 @@ function HomePage({ middleComponent, middleComponentName }: any) {
         },
       });
 
+      console.log("response: ", response.data);
+
       dispatch(setPosts(response.data));
 
       // setPostsX(response.data);
