@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { setSigned } from "../Redux/signedReducer";
@@ -10,19 +10,17 @@ type LoginInfo = {
   password: string;
 };
 
-function Auth() {
+const Auth: React.FC<{}> = () => {
   const inputRef = useRef<HTMLDivElement>(null);
   const [loginInfo, setLoginInfo] = useState<Partial<LoginInfo>>({});
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState<boolean>(true);
   const { login, currentUser }: any = useAuth();
 
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState<string | undefined>("");
 
-  const dispatch = useDispatch();
-
-  function handleDivBorder(instruction: any) {
+  function handleDivBorder(instruction: string) {
     if (!inputRef.current) return;
 
     if (instruction == "remove") {
@@ -159,7 +157,7 @@ function Auth() {
                       password
                     </p>
                     <input
-                      onClick={handleDivBorder}
+                      onClick={(e) => handleDivBorder("")}
                       onChange={postLoginState}
                       name="password"
                       placeholder="password"
@@ -192,6 +190,6 @@ function Auth() {
       </div>
     </div>
   );
-}
+};
 
 export default Auth;

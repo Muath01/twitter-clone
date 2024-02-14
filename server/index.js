@@ -9,9 +9,21 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { CommentModel, PostModel } from "./models/Post.js";
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://195.201.26.157",
+  "http://116.203.134.67",
+  "http://116.203.129.16",
+  "http://23.88.105.37",
+  "http://128.140.8.200",
+];
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: allowedOrigins,
+  })
+);
 app.use(bodyParser.json());
 
 mongoose.connect(

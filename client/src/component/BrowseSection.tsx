@@ -2,11 +2,11 @@ import { useState } from "react";
 import Settings from "./Settings";
 import { useAuth } from "../Contexts/AuthContext";
 
-function BrowseSection() {
+const BrowseSection: React.FC<{}> = () => {
   const [activeTab, setActiveTab] = useState<boolean>(true);
   const { currentUser }: any = useAuth();
 
-  const [settingsModal, setSettingsModal] = useState(true);
+  const [settingsModal, setSettingsModal] = useState<boolean>(true);
 
   function openSetting() {
     setSettingsModal(!settingsModal);
@@ -63,6 +63,6 @@ function BrowseSection() {
       )}
     </div>
   );
-}
+};
 
 export default BrowseSection;

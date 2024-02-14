@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import { setDisplay } from "../Redux/displayReducer";
 
-function DarkMode() {
+const DarkMode: React.FC<{}> = () => {
   const { darkMode } = useSelector((state: RootState) => state.displayRedux);
   const dispatch = useDispatch();
 
@@ -34,6 +34,6 @@ function DarkMode() {
       </div>
     </div>
   );
-}
+};
 
 export default DarkMode;
