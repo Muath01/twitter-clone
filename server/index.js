@@ -10,6 +10,7 @@ import { fileURLToPath } from "url";
 import { CommentModel, PostModel } from "./models/Post.js";
 
 const allowedOrigins = [
+  "https://github.com/muathcs/twitter-clone.git",
   "http://localhost:5173",
   "http://195.201.26.157",
   "http://116.203.134.67",
