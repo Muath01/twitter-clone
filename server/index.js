@@ -12,11 +12,11 @@ import { CommentModel, PostModel } from "./models/Post.js";
 const allowedOrigins = [
   "https://twitter-clone-client-v76u.onrender.com",
   "http://localhost:5173",
-  "http://195.201.26.157",
-  "http://116.203.134.67",
-  "http://116.203.129.16",
-  "http://23.88.105.37",
-  "http://128.140.8.200",
+  "https://195.201.26.157",
+  "https://116.203.134.67",
+  "https://116.203.129.16",
+  "https://23.88.105.37",
+  "https://128.140.8.200",
 ];
 const app = express();
 app.use(express.json());
